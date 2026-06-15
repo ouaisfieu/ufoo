@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     SEO — PERSONNALISER LES 3 CHAMPS CI-DESSOUS
+     1. <title> et og:title  : reprenez le titre EXACT de la vidéo
+     2. meta description      : 150-160 caractères, avec vos mots-clés
+     3. uploadDate (JSON-LD)  : remplacez par la VRAIE date de mise en ligne
+     ============================================================ -->
+
+<title>Ufologie : décryptage d'une observation OVNI filmée | Terminal WOPR</title>
+<meta name="description" content="Une observation aérienne non identifiée passée au crible : la vidéo, le lexique OVNI/PAN/UAP, le travail du GEIPAN et les grands cas (Nimitz, Trans-en-Provence). Console d'analyse interactive.">
+<meta name="keywords" content="ufologie, OVNI, UAP, PAN, phénomène aérospatial non identifié, observation OVNI, GEIPAN, vidéo OVNI, ufologie France, WOPR">
+<meta name="author" content="Terminal Ufologie">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ouaisfieu.github.io/ufoo/opus/1/2/">
+
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="Ufologie : décryptage d'une observation OVNI filmée">
+<meta property="og:description" content="Console d'analyse interactive : la vidéo, le contexte ufologique et les grands cas de référence.">
+<meta property="og:url" content="https://ouaisfieu.github.io/ufoo/opus/1/2/">
+<meta property="og:site_name" content="Terminal Ufologie">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:video" content="https://www.youtube.com/embed/U3ywiWYSbXQ">
+<meta property="og:video:type" content="text/html">
+<meta property="og:video:width" content="1280">
+<meta property="og:video:height" content="720">
+
+<meta name="twitter:card" content="player">
+<meta name="twitter:title" content="Ufologie : décryptage d'une observation OVNI filmée">
+<meta name="twitter:description" content="Console d'analyse : la vidéo, le contexte et les cas de référence de l'ufologie moderne.">
+<meta name="twitter:image" content="https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg">
+<meta name="twitter:player" content="https://www.youtube.com/embed/U3ywiWYSbXQ">
+<meta name="twitter:player:width" content="1280">
+<meta name="twitter:player:height" content="720">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Ufologie : décryptage d'une observation OVNI filmée",
+  "description": "Une observation aérienne non identifiée analysée en détail : la vidéo, le contexte ufologique et les grands dossiers de référence, des FLIR de l'US Navy au cas français de Trans-en-Provence.",
+  "thumbnailUrl": "https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg",
+  "uploadDate": "2024-01-01T00:00:00+00:00",
+  "embedUrl": "https://www.youtube.com/embed/U3ywiWYSbXQ",
+  "contentUrl": "https://www.youtube.com/watch?v=U3ywiWYSbXQ",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Terminal Ufologie",
+    "url": "https://ouaisfieu.github.io/ufoo/opus/1/2/"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Quelle est la différence entre OVNI, PAN et UAP ?","acceptedAnswer":{"@type":"Answer","text":"OVNI (objet volant non identifié) est le terme historique. En France, l'organisme officiel parle de PAN, pour phénomène aérospatial non identifié, afin d'éviter le mot « objet » qui préjuge déjà de la nature de l'observation. Aux États-Unis, l'acronyme UAP (Unidentified Anomalous Phenomena) a remplacé l'ancien UFO pour la même raison."}},
+    {"@type":"Question","name":"Qu'est-ce que le GEIPAN ?","acceptedAnswer":{"@type":"Answer","text":"Le GEIPAN est le Groupe d'études et d'informations sur les phénomènes aérospatiaux non identifiés, rattaché au CNES, l'agence spatiale française. C'est l'unique organisme public au monde chargé de recueillir et d'analyser les témoignages, qu'il classe de A (identifié) à D (non identifié malgré une enquête complète)."}},
+    {"@type":"Question","name":"Une observation non identifiée prouve-t-elle une origine extraterrestre ?","acceptedAnswer":{"@type":"Answer","text":"Non. « Non identifié » signifie seulement que l'enquête n'a pas permis de conclure avec les données disponibles. La grande majorité des observations s'expliquent par des phénomènes connus : avions, drones, ballons, satellites, planètes, phénomènes optiques. Le reliquat inexpliqué traduit surtout un manque de données."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --crt:#020a06;
+    --crt2:#04130b;
+    --panel:rgba(10,30,18,.66);
+    --phos:#41ff86;
+    --phos-dim:#1f9e52;
+    --phos-deep:#0c6b35;
+    --amber:#ffb73d;
+    --cyan:#52e3ff;
+    --alert:#ff5a48;
+    --ink:#cfffe2;
+    --mute:#5fb487;
+    --grid:rgba(65,255,134,.10);
+    --line:rgba(65,255,134,.22);
+    --maxw:1240px;
+    --vt:'VT323', monospace;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, var(--crt2), var(--crt) 70%),
+      var(--crt);
+    color:var(--phos);
+    font-family:var(--mono);
+    font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;position:relative;min-height:100vh;
+    text-shadow:0 0 1px rgba(65,255,134,.35);
+  }
+
+  /* CRT overlay : scanlines + vignette + flicker */
+  .crt-overlay{position:fixed;inset:0;z-index:50;pointer-events:none}
+  .crt-overlay::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.16) 0 1px, transparent 1px 3px);
+    mix-blend-mode:multiply;
+  }
+  .crt-overlay::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(120% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.7) 100%);
+    animation:flicker 6s infinite steps(60);
+  }
+  @keyframes flicker{0%,100%{opacity:.92}50%{opacity:1}97%{opacity:.85}}
+
+  .wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(16px,4vw,48px);position:relative;z-index:2}
+  a{color:var(--cyan)}
+  .glow{text-shadow:0 0 8px currentColor,0 0 22px rgba(65,255,134,.5)}
+
+  /* ---------- STATUS BAR ---------- */
+  .statusbar{position:sticky;top:0;z-index:40;background:rgba(2,10,6,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(3px)}
+  .statusbar .wrap{display:flex;align-items:center;gap:1rem;justify-content:space-between;padding-block:9px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+  .sys{display:flex;align-items:center;gap:.6rem;color:var(--ink)}
+  .led{width:9px;height:9px;border-radius:50%;background:var(--phos);box-shadow:0 0 10px var(--phos);animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .alertword{color:var(--amber)}
+  .clock{color:var(--cyan);font-variant-numeric:tabular-nums}
+  @media (max-width:640px){.statusbar .sys span.hideS{display:none}}
+
+  /* ---------- TERMINAL HERO ---------- */
+  .term-wrap{padding-block:clamp(22px,4vw,40px)}
+  .terminal{
+    border:1px solid var(--line);border-radius:8px;background:var(--panel);
+    box-shadow:0 0 0 1px rgba(0,0,0,.4), 0 28px 80px -30px #000, inset 0 0 90px rgba(65,255,134,.04);
+    overflow:hidden;
+  }
+  .term-titlebar{display:flex;align-items:center;gap:.7rem;padding:.6rem 1rem;border-bottom:1px solid var(--line);background:rgba(65,255,134,.05);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .term-titlebar .knob{width:11px;height:11px;border-radius:50%;border:1px solid var(--phos-dim)}
+  .term-titlebar .knob.a{background:var(--alert);border-color:var(--alert)}
+  .term-titlebar .knob.b{background:var(--amber);border-color:var(--amber)}
+  .term-titlebar .knob.c{background:var(--phos);border-color:var(--phos)}
+  .term-titlebar .tt{margin-left:.5rem}
+  .term-body{padding:clamp(18px,3vw,34px);min-height:340px}
+  .boot{font-family:var(--vt);font-size:1.35rem;line-height:1.35;color:var(--phos-dim);white-space:pre-wrap}
+  .boot .ok{color:var(--phos)}
+  .boot .you{color:var(--cyan)}
+
+  h1{
+    font-family:var(--vt);font-weight:400;color:var(--phos);
+    font-size:clamp(4rem,17vw,11rem);line-height:.8;letter-spacing:.02em;
+    text-transform:uppercase;margin:.7rem 0 .2rem;
+  }
+  .subhead{font-family:var(--vt);font-size:clamp(1.4rem,4vw,2.3rem);color:var(--amber);letter-spacing:.06em;text-transform:uppercase;line-height:1.05;margin-bottom:1.4rem}
+  .cursor{display:inline-block;width:.6ch;background:var(--phos);box-shadow:0 0 10px var(--phos);animation:caret 1s steps(2) infinite;color:transparent}
+  @keyframes caret{50%{opacity:0}}
+
+  .cmdrow{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.6rem}
+  .cmd{
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.05em;
+    background:transparent;color:var(--phos);border:1px solid var(--phos-dim);
+    padding:.6em 1em;border-radius:4px;cursor:pointer;text-transform:uppercase;
+    transition:background .15s,box-shadow .15s,color .15s;
+  }
+  .cmd:hover,.cmd:focus-visible{background:var(--phos);color:var(--crt);box-shadow:0 0 18px rgba(65,255,134,.5)}
+
+  /* ---------- SECTION FRAME ---------- */
+  section{position:relative;z-index:2;padding-block:clamp(34px,5vw,64px)}
+  .label{font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:.7em;margin-bottom:.8rem}
+  .label::before{content:"▚";color:var(--phos-dim)}
+  h2{font-family:var(--vt);font-weight:400;color:var(--phos);font-size:clamp(2.2rem,5.5vw,3.6rem);line-height:.95;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.7rem}
+  h3{font-family:var(--vt);font-size:1.7rem;color:var(--ink);letter-spacing:.03em;margin:1.4rem 0 .3rem}
+  p{max-width:70ch;margin-bottom:1rem;color:var(--ink)}
+  p strong{color:var(--phos);font-weight:600}
+  .panel{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:clamp(18px,3vw,30px);position:relative}
+  .panel::before,.panel::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--phos-dim)}
+  .panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+  /* ---------- BIG BOARD ---------- */
+  .board-grid{display:grid;grid-template-columns:1.7fr .9fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  @media (max-width:820px){.board-grid{grid-template-columns:1fr}}
+  .board{background:rgba(2,12,7,.7);position:relative;aspect-ratio:16/10}
+  .board svg{position:absolute;inset:0;width:100%;height:100%}
+  .telemetry{background:rgba(2,12,7,.7);padding:1.1rem 1.2rem;font-size:.8rem;line-height:1.9}
+  .telemetry .row{display:flex;justify-content:space-between;border-bottom:1px dotted rgba(65,255,134,.15);padding:.15rem 0}
+  .telemetry .row span:first-child{color:var(--mute)}
+  .telemetry .row span:last-child{color:var(--phos);font-variant-numeric:tabular-nums}
+  .telemetry .stream{margin-top:1rem;color:var(--phos-dim);font-size:.72rem;white-space:pre;overflow:hidden;height:7.6em;line-height:1.55}
+
+  .arc{fill:none;stroke:var(--amber);stroke-width:1.4;stroke-dasharray:6 4;opacity:.85;
+       stroke-dashoffset:600;animation:draw 4s linear infinite}
+  .arc.b{stroke:var(--cyan);animation-delay:1s}
+  .arc.c{stroke:var(--phos);animation-delay:2.1s}
+  @keyframes draw{from{stroke-dashoffset:600}to{stroke-dashoffset:0}}
+  .blip{fill:var(--phos)}
+  .blip.t{fill:var(--alert)}
+  .ping{fill:none;stroke:var(--alert);stroke-width:1.5;transform-origin:center;transform-box:fill-box;animation:ping 3s ease-out infinite}
+  @keyframes ping{0%{r:3;opacity:.9}100%{r:34;opacity:0}}
+  .sweep-line{stroke:rgba(65,255,134,.5);stroke-width:1.5;transform-origin:50% 50%;animation:rot 6s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+
+  /* ---------- DEFCON / ALERTE ---------- */
+  .defcon{display:flex;gap:.5rem;margin:.4rem 0 .2rem;flex-wrap:wrap}
+  .dc{flex:1;min-width:74px;border:1px solid var(--line);border-radius:4px;padding:.5rem .4rem;text-align:center;font-size:.66rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase}
+  .dc b{display:block;font-family:var(--vt);font-size:1.7rem;line-height:1;margin-bottom:.1rem;color:var(--phos-dim)}
+  .dc.on{border-color:var(--amber);color:var(--amber)}
+  .dc.on b{color:var(--amber);animation:blink 1.1s steps(2) infinite}
+
+  /* ---------- VIDEO (CRT MONITOR) ---------- */
+  .monitor{border:1px solid var(--line);border-radius:8px;background:rgba(2,12,7,.7);padding:14px;box-shadow:inset 0 0 60px rgba(65,255,134,.05),0 24px 70px -28px #000}
+  .mon-bar{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 4px 9px}
+  .mon-bar .rec{color:var(--alert);display:flex;align-items:center;gap:.45em}
+  .mon-bar .rec::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--alert);box-shadow:0 0 8px var(--alert);animation:blink 1.1s steps(2) infinite}
+  .screen{position:relative;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#000}
+  .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .caption{font-size:.76rem;color:var(--mute);margin-top:1rem}
+
+  /* ---------- READOUTS / TABLES ---------- */
+  .readout{font-family:var(--mono);font-size:.92rem;line-height:1.8;border-left:2px solid var(--phos-dim);padding-left:1rem;margin:1rem 0;color:var(--phos-dim)}
+  .readout b{color:var(--phos)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,44px);align-items:start}
+  @media (max-width:760px){.grid-2{grid-template-columns:1fr}}
+  .matrix{border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .matrix .r{display:flex;gap:1rem;padding:.85rem 1.1rem;border-bottom:1px solid rgba(65,255,134,.14);align-items:baseline}
+  .matrix .r:last-child{border-bottom:0}
+  .matrix .k{font-family:var(--vt);font-size:1.9rem;color:var(--amber);width:1.2em;line-height:.8}
+  .matrix .v b{color:var(--ink);display:block}
+  .matrix .v{font-size:.86rem;color:var(--mute)}
+
+  .archives{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:.4rem}
+  .arch{background:rgba(2,12,7,.7);padding:1.4rem 1.3rem;transition:background .2s}
+  .arch:hover{background:rgba(65,255,134,.06)}
+  .arch .ref{font-size:.68rem;letter-spacing:.16em;color:var(--amber);margin-bottom:.5rem}
+  .arch h3{margin:0 0 .35rem;font-size:1.5rem;color:var(--phos)}
+  .arch p{font-size:.86rem;margin:0;color:var(--ink)}
+
+  /* ---------- FAQ ---------- */
+  details{border-bottom:1px solid rgba(65,255,134,.16)}
+  summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-family:var(--vt);font-size:1.5rem;color:var(--ink);display:flex;justify-content:space-between;gap:1rem;letter-spacing:.02em}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"> ";color:var(--phos)}
+  summary::after{content:"[+]";color:var(--amber);font-family:var(--mono);font-size:.9rem}
+  details[open] summary::after{content:"[-]"}
+  .ans{padding:0 0 1.3rem;max-width:74ch;color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding-block:34px;position:relative;z-index:2;margin-top:1rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:1.1rem;justify-content:space-between;align-items:center}
+  .disc{font-size:.72rem;color:var(--mute);max-width:62ch;line-height:1.6}
+  .ytlink{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crt);background:var(--phos);text-decoration:none;padding:.7em 1.1em;border-radius:4px;font-weight:600}
+  .ytlink:hover{box-shadow:0 0 20px rgba(65,255,134,.6)}
+
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+  ::selection{background:var(--phos);color:var(--crt)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important}
+    .cursor{opacity:1}
+  }
+</style>
+</head>
+<body>
+<div class="crt-overlay" aria-hidden="true"></div>
+
+<div class="statusbar">
+  <div class="wrap">
+    <span class="sys"><span class="led"></span>WOPR <span class="hideS">// War Operation Plan Response</span></span>
+    <span class="alertword">◆ ALERTE PAN : NIVEAU 3</span>
+    <span class="clock" id="clock">--:--:-- UTC</span>
+  </div>
+</div>
+
+<main>
+  <!-- TERMINAL HERO -->
+  <div class="term-wrap"><div class="wrap">
+    <div class="terminal">
+      <div class="term-titlebar">
+        <span class="knob a"></span><span class="knob b"></span><span class="knob c"></span>
+        <span class="tt">/dev/wopr — terminal d'analyse · phénomènes aérospatiaux non identifiés</span>
+      </div>
+      <div class="term-body">
+        <div class="boot" id="boot" aria-hidden="true"></div>
+        <div id="reveal" style="display:none">
+          <h1 class="glow">Ufologie</h1>
+          <div class="subhead">Décryptage d'une observation OVNI — dossier ouvert au public</div>
+          <p>Bienvenue, opérateur. Cette console réunit une <strong>vidéo d'observation</strong>, le vocabulaire exact du domaine, la méthode d'enquête du GEIPAN et les grands cas qui ont forcé scientifiques et militaires à regarder vers le haut. Lisez d'abord, concluez ensuite.</p>
+          <div class="cmdrow">
+            <button class="cmd" data-go="#video">&gt; Lancer la vidéo</button>
+            <button class="cmd" data-go="#comprendre">&gt; Lexique OVNI/PAN</button>
+            <button class="cmd" data-go="#cas">&gt; Ouvrir les archives</button>
+            <button class="cmd" data-go="#faq">&gt; Interroger le système</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- BIG BOARD -->
+  <section id="board">
+    <div class="wrap">
+      <div class="label">Tableau tactique · contacts en cours</div>
+      <h2>La carte des contacts</h2>
+      <div class="board-grid">
+        <div class="board">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tableau tactique stylisé avec trajectoires de contacts et une cible non identifiée">
+            <defs>
+              <pattern id="g" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M32 0H0V32" fill="none" stroke="rgba(65,255,134,.10)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="640" height="400" fill="url(#g)"/>
+            <!-- graticule emphasis -->
+            <line x1="0" y1="200" x2="640" y2="200" stroke="rgba(65,255,134,.18)"/>
+            <line x1="320" y1="0" x2="320" y2="400" stroke="rgba(65,255,134,.18)"/>
+            <!-- range rings -->
+            <circle cx="320" cy="200" r="70" fill="none" stroke="rgba(65,255,134,.16)"/>
+            <circle cx="320" cy="200" r="140" fill="none" stroke="rgba(65,255,134,.12)"/>
+            <circle cx="320" cy="200" r="210" fill="none" stroke="rgba(65,255,134,.08)"/>
+            <!-- rotating sweep -->
+            <line class="sweep-line" x1="320" y1="200" x2="320" y2="20"/>
+            <!-- trajectory arcs toward the unknown target -->
+            <path class="arc"   d="M60 360 Q 220 120 318 198"/>
+            <path class="arc b" d="M600 60 Q 420 90 322 196"/>
+            <path class="arc c" d="M80 60  Q 240 260 316 202"/>
+            <!-- station blips -->
+            <circle class="blip" cx="60" cy="360" r="3.5"/>
+            <circle class="blip" cx="600" cy="60" r="3.5"/>
+            <circle class="blip" cx="80" cy="60" r="3.5"/>
+            <!-- unknown target -->
+            <circle class="ping" cx="320" cy="200" r="3"/>
+            <circle class="blip t" cx="320" cy="200" r="4.5"/>
+            <text x="332" y="196" fill="#ff5a48" font-family="monospace" font-size="11">PAN-04 ?</text>
+            <text x="60" y="382" fill="#5fb487" font-family="monospace" font-size="10">STA-01</text>
+            <text x="560" y="52" fill="#5fb487" font-family="monospace" font-size="10">STA-02</text>
+            <text x="84" y="52" fill="#5fb487" font-family="monospace" font-size="10">STA-03</text>
+          </svg>
+        </div>
+        <div class="telemetry">
+          <div class="row"><span>CONTACT</span><span>PAN-04</span></div>
+          <div class="row"><span>LAT</span><span>43.5021 N</span></div>
+          <div class="row"><span>LON</span><span>006.0917 E</span></div>
+          <div class="row"><span>ALT</span><span>—— ft</span></div>
+          <div class="row"><span>VÉLOCITÉ</span><span>—— kt</span></div>
+          <div class="row"><span>SCE</span><span>négligeable</span></div>
+          <div class="row"><span>CLASSE</span><span>D · inexpliqué</span></div>
+          <div class="defcon" id="defcon">
+            <div class="dc"><b>5</b>routine</div>
+            <div class="dc"><b>4</b>veille</div>
+            <div class="dc on"><b>3</b>analyse</div>
+            <div class="dc"><b>2</b>alerte</div>
+            <div class="dc"><b>1</b>max</div>
+          </div>
+          <div class="stream" id="stream"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section id="video">
+    <div class="wrap">
+      <div class="label">Flux vidéo · pièce 01</div>
+      <h2>L'observation, en direct</h2>
+      <p>Pièce centrale du dossier. Premier visionnage sans commentaire&nbsp;: notez la <strong>trajectoire</strong>, la <strong>luminosité</strong> et la présence ou non d'un bruit moteur. L'analyse suit.</p>
+      <div class="monitor">
+        <div class="mon-bar"><span>FEED // REF U3ywiWYSbXQ</span><span class="rec">SIGNAL CAPTÉ</span></div>
+        <div class="screen">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/U3ywiWYSbXQ?rel=0"
+            title="Observation OVNI — vidéo analysée dans ce dossier d'ufologie"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+      <p class="caption">↳ Source&nbsp;: youtube.com/watch?v=U3ywiWYSbXQ — lecture sans cookie de suivi.</p>
+    </div>
+  </section>
+
+  <!-- COMPRENDRE -->
+  <section id="comprendre">
+    <div class="wrap">
+      <div class="label">Lexique · ce que les mots cachent</div>
+      <h2>OVNI · PAN · UAP</h2>
+      <p>Le terme <strong>OVNI</strong> — objet volant non identifié — affirme déjà qu'il y a un «&nbsp;objet&nbsp;» et qu'il «&nbsp;vole&nbsp;». Or c'est souvent justement ce qu'on ignore. Les institutions ont donc adopté un vocabulaire plus prudent.</p>
+      <div class="readout">
+        &gt; OVNI&nbsp;&nbsp;= <b>terme historique</b>, présuppose un objet<br>
+        &gt; PAN&nbsp;&nbsp;&nbsp;= <b>phénomène aérospatial non identifié</b> (France, GEIPAN)<br>
+        &gt; UAP&nbsp;&nbsp;&nbsp;= <b>Unidentified Anomalous Phenomena</b> (terme officiel US)<br>
+        &gt; STATUT « non identifié » ≠ <b>extraterrestre</b>
+      </div>
+      <p><strong>Non identifié ne veut pas dire extraterrestre.</strong> Cela signifie seulement que les données disponibles n'ont pas suffi à conclure — la nuance la plus importante de toute l'ufologie sérieuse, et la première à garder en tête devant la vidéo ci-dessus.</p>
+
+      <div class="grid-2" style="margin-top:2.4rem">
+        <div>
+          <h3>Le GEIPAN, l'exception française</h3>
+          <p>Rattaché au <strong>CNES</strong>, l'agence spatiale française, le <strong>GEIPAN</strong> est l'unique service public au monde chargé de recueillir et d'instruire les témoignages. Il publie ses dossiers en ligne et classe chaque observation selon le degré d'explication atteint.</p>
+        </div>
+        <div>
+          <div class="label">Matrice de classement</div>
+          <div class="matrix">
+            <div class="r"><span class="k">A</span><span class="v"><b>Identifié</b>Cause connue et certaine.</span></div>
+            <div class="r"><span class="k">B</span><span class="v"><b>Probable</b>Explication très vraisemblable.</span></div>
+            <div class="r"><span class="k">C</span><span class="v"><b>Inexploitable</b>Trop peu de données.</span></div>
+            <div class="r"><span class="k">D</span><span class="v"><b>Non identifié</b>Inexpliqué malgré enquête complète.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAS -->
+  <section id="cas">
+    <div class="wrap">
+      <div class="label">Archives · dossiers de référence</div>
+      <h2>Quatre dossiers déclassifiés</h2>
+      <p>Aucun ne «&nbsp;prouve&nbsp;» quoi que ce soit. Mais chacun a survécu à l'enquête — c'est ce qui les rend dignes d'étude.</p>
+      <div class="archives">
+        <div class="arch"><div class="ref">USA · 1947-1969</div><h3>Project Blue Book</h3><p>Plus de 12&nbsp;000 observations compilées par l'US Air Force. La majorité expliquée&nbsp;; un reliquat sans réponse ouvre le débat scientifique moderne.</p></div>
+        <div class="arch"><div class="ref">FR · 1981</div><h3>Trans-en-Provence</h3><p>Un engin décrit posé dans un jardin. Le GEPAN relève traces au sol et anomalies sur la végétation — l'un des dossiers physiques les plus étudiés en France.</p></div>
+        <div class="arch"><div class="ref">PAC · 2004</div><h3>Nimitz « Tic-Tac »</h3><p>Des pilotes de l'US Navy filment au capteur infrarouge un objet sans ailes ni tuyère. Vidéos authentifiées par le Pentagone en 2020.</p></div>
+        <div class="arch"><div class="ref">USA · 2021-2023</div><h3>ODNI &amp; AARO</h3><p>Le renseignement américain publie un bilan officiel des UAP puis crée un bureau dédié. Conclusion prudente&nbsp;: données manquantes, aucune preuve d'origine non humaine.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="label">Interrogation système · questions fréquentes</div>
+      <h2>Réponses</h2>
+      <details open><summary>OVNI, PAN, UAP : quelle différence ?</summary><div class="ans">OVNI est le terme historique. La France emploie PAN (phénomène aérospatial non identifié) pour ne pas présupposer un «&nbsp;objet&nbsp;». Les États-Unis ont adopté UAP pour la même raison&nbsp;: décrire ce qu'on observe, pas ce qu'on imagine.</div></details>
+      <details><summary>Qu'est-ce que le GEIPAN ?</summary><div class="ans">Le service du CNES chargé d'étudier les témoignages d'observation en France. Il instruit chaque cas et le classe de A (identifié) à D (non identifié malgré enquête complète). Ses dossiers sont publics.</div></details>
+      <details><summary>Une vidéo « inexpliquée » prouve-t-elle des extraterrestres ?</summary><div class="ans">Non. «&nbsp;Inexpliqué&nbsp;» traduit surtout un manque de données&nbsp;: angle, distance, calibration du capteur, météo. La quasi-totalité des observations finissent expliquées (avions, drones, ballons, planètes, reflets). Le reste justifie l'enquête, pas une conclusion.</div></details>
+      <details><summary>Comment analyser sérieusement une observation ?</summary><div class="ans">On part des hypothèses les plus banales avant les plus exotiques&nbsp;: date et heure exactes, position du témoin, météo, trafic aérien, position des astres. Une bonne enquête cherche d'abord à expliquer — pas à confirmer une intuition.</div></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disc">// Console à vocation pédagogique. Ce terminal n'établit pas l'origine des phénomènes présentés&nbsp;: il rassemble une vidéo et son contexte documenté. Marques et organismes cités appartiennent à leurs détenteurs respectifs.</p>
+    <a class="ytlink" href="https://www.youtube.com/watch?v=U3ywiWYSbXQ" target="_blank" rel="noopener">Voir sur YouTube ↗</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* live UTC mission clock */
+  var clk = document.getElementById('clock');
+  function tick(){
+    var d = new Date();
+    function p(n){return String(n).padStart(2,'0');}
+    clk.textContent = p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds())+' UTC';
+  }
+  tick(); setInterval(tick,1000);
+
+  /* boot sequence typing */
+  var boot = document.getElementById('boot');
+  var reveal = document.getElementById('reveal');
+  var lines = [
+    {t:"ÉTABLISSEMENT DE LA LIAISON .............. ", s:"[OK]"},
+    {t:"AUTHENTIFICATION OPÉRATEUR ............... ", s:"[OK]"},
+    {t:"CHARGEMENT BASE DE DONNÉES P.A.N. ........ ", s:"[OK]"},
+    {t:"ANALYSE DU CONTACT PAN-04 ................ ", s:"[ACTIF]"},
+    {y:"> BONJOUR PROFESSEUR."},
+    {y:"> ON FAIT UNE PARTIE ?"}
+  ];
+
+  function showReveal(){ reveal.style.display='block'; }
+
+  if(reduce){
+    // render final state instantly
+    boot.innerHTML = lines.map(function(l){
+      if(l.y) return '<span class="you">'+l.y+'</span>';
+      return l.t+'<span class="ok">'+l.s+'</span>';
+    }).join('\n');
+    showReveal();
+  } else {
+    var li=0, ci=0, cur='';
+    function type(){
+      if(li>=lines.length){ showReveal(); return; }
+      var l = lines[li];
+      var full = l.y ? l.y : l.t;
+      if(ci<=full.length){
+        cur = full.slice(0,ci);
+        var rendered = boot.getAttribute('data-done')||'';
+        var active = l.y ? '<span class="you">'+cur+'</span>' : cur;
+        boot.innerHTML = rendered + active + '<span class="cursor">_</span>';
+        ci++;
+        setTimeout(type, l.y?38:14);
+      } else {
+        var done = boot.getAttribute('data-done')||'';
+        if(l.y){ done += '<span class="you">'+full+'</span>\n'; }
+        else { done += l.t+'<span class="ok">'+l.s+'</span>\n'; }
+        boot.setAttribute('data-done',done);
+        li++; ci=0;
+        setTimeout(type, 180);
+      }
+    }
+    type();
+  }
+
+  /* command buttons -> scroll */
+  document.querySelectorAll('.cmd').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.querySelector(b.getAttribute('data-go'));
+      if(el) el.scrollIntoView({behavior:reduce?'auto':'smooth', block:'start'});
+    });
+  });
+
+  /* telemetry data stream */
+  var stream = document.getElementById('stream');
+  if(stream && !reduce){
+    var buf=[];
+    function hex(n){var s='';for(var i=0;i<n;i++)s+='0123456789ABCDEF'[Math.floor(Math.random()*16)];return s;}
+    function feed(){
+      var line = hex(2)+' '+hex(2)+' '+hex(4)+'  '+(Math.random()<.5?'TRK':'SCN')+' '+hex(2);
+      buf.push(line); if(buf.length>5) buf.shift();
+      stream.textContent = buf.join('\n');
+    }
+    for(var i=0;i<5;i++) feed();
+    setInterval(feed, 900);
+  } else if(stream){
+    stream.textContent = "A4 1F 0C20  TRK 09\n3B 7E 0C21  SCN 1A\n90 11 0C22  TRK 04\n";
+  }
+})();
+</script>
+</body>
+</html>
