@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ==========================================
+         OPTIMISATION SEO & BALISES META
+         ========================================== -->
+    <title>UAP Command Center | Analyse Vidéo des Phénomènes Aérospatiaux (OVNIS)</title>
+    <meta name="description" content="Dashboard analytique classifié décortiquant la vidéo d'investigation sur les Phénomènes Aérospatiaux Non Identifiés (PAN/UAP). Incidents Nimitz, Téhéran et GEIPAN.">
+    <meta name="keywords" content="OVNI, UAP, PAN, GEIPAN, USS Nimitz, Incident Téhéran, analyse aérospatiale, données radar, extraterrestre, ufologie militaire">
+    <meta name="author" content="ouaisfieu">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL pour GitHub Pages -->
+    <link rel="canonical" href="https://ouaisfieu.github.io/ufoo/gem/1/2/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ouaisfieu.github.io/ufoo/gem/1/2/">
+    <meta property="og:title" content="UAP Command Center | Analyse des Phénomènes Aérospatiaux (OVNIS)">
+    <meta property="og:description" content="Interface analytique classifiée (War Room) explorant les rapports officiels sur les PAN. Visionnez l'enquête complète.">
+    <meta property="og:image" content="https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ouaisfieu.github.io/ufoo/gem/1/2/">
+    <meta name="twitter:title" content="UAP Command Center | Analyse des Phénomènes Aérospatiaux">
+    <meta name="twitter:description" content="Interface analytique classifiée (War Room) explorant les rapports officiels sur les PAN. Visionnez l'enquête complète.">
+    <meta name="twitter:image" content="https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg">
+
+    <!-- ==========================================
+         DONNÉES STRUCTURÉES (JSON-LD) POUR GOOGLE
+         ========================================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://ouaisfieu.github.io/ufoo/gem/1/2/"
+      },
+      "headline": "UAP Command Center : Analyse des Phénomènes Aérospatiaux Non Identifiés",
+      "description": "Dashboard interactif présentant les données militaires, radars et biologiques (GEIPAN, AARO) entourant le phénomène OVNI/PAN.",
+      "author": {
+        "@type": "Person",
+        "name": "ouaisfieu"
+      },
+      "video": {
+        "@type": "VideoObject",
+        "name": "Hors Série - Hors Sujet : Les OVNIS sont-iels les bienvenus ?",
+        "description": "Exploration approfondie des données gouvernementales et militaires concernant les Phénomènes Aérospatiaux Non Identifiés.",
+        "thumbnailUrl": "https://i.ytimg.com/vi/U3ywiWYSbXQ/maxresdefault.jpg",
+        "uploadDate": "2026-06-15",
+        "embedUrl": "https://www.youtube.com/embed/U3ywiWYSbXQ"
+      }
+    }
+    </script>
+
+    <!-- ==========================================
+         STYLES CSS (WAR ROOM THEME)
+         ========================================== -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --bg-color: #050a15;
+            --main-cyan: #00ffff;
+            --main-red: #ff003c;
+            --main-green: #00ff66;
+            --panel-bg: rgba(0, 20, 40, 0.6);
+            --border-style: 1px solid var(--main-cyan);
+            --glow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        body {
+            margin: 0;
+            padding: 10px;
+            background-color: var(--bg-color);
+            color: var(--main-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden; /* Empêche le scroll de la page entière */
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, var(--bg-color) 100%),
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+        }
+
+        /* Effet CRT (Scanlines) */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Layout Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: 60px 1fr 150px;
+            gap: 15px;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive Design pour les petits écrans (Smartphones) */
+        @media (max-width: 900px) {
+            body { overflow-y: auto; height: auto; }
+            .dashboard {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+                height: auto;
+            }
+            .header { grid-column: 1; grid-row: 1; flex-direction: column; text-align: center; }
+            .center-col { grid-column: 1; grid-row: 2; }
+            .left-col { grid-column: 1; grid-row: 3; }
+            .right-col { grid-column: 1; grid-row: 4; height: 300px;}
+            .bottom-row { grid-column: 1; grid-row: 5; }
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: var(--border-style);
+            box-shadow: var(--glow);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--main-red);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: clamp(18px, 2vw, 24px); /* S'adapte à l'écran */
+            color: var(--main-red);
+            text-shadow: 0 0 10px var(--main-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* Left Col: Radar */
+        .left-col { overflow: hidden; }
+        .radar-container {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto 20px auto;
+            aspect-ratio: 1;
+            border: var(--border-style);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(0,0,0,1) 100%);
+        }
+        .radar-grid {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: 
+                linear-gradient(90deg, transparent 49.5%, rgba(0, 255, 255, 0.5) 50%, transparent 50.5%),
+                linear-gradient(0deg, transparent 49.5%, rgba(0, 255, 255, 0.5) 50%, transparent 50.5%);
+        }
+        .radar-sweep {
+            position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;
+            background: conic-gradient(from 0deg, transparent 70%, var(--main-cyan) 100%);
+            transform-origin: 0% 0%;
+            animation: sweep 4s infinite linear;
+        }
+        .target {
+            position: absolute; width: 6px; height: 6px; background-color: var(--main-red);
+            border-radius: 50%; box-shadow: 0 0 8px var(--main-red);
+            animation: blinker 2s infinite;
+        }
+        @keyframes sweep { 100% { transform: rotate(360deg); } }
+
+        /* Center Col: Video */
+        .center-col { align-items: center; justify-content: flex-start; padding-top: 30px;}
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; width: 100%;
+            border: 2px solid var(--main-cyan); box-shadow: 0 0 15px var(--main-cyan);
+            margin-top: 10px;
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Filtre pour fondre la vidéo dans l'interface */
+            filter: sepia(0.2) hue-rotate(180deg) brightness(0.9) contrast(1.2);
+        }
+        .target-lock {
+            position: absolute; top: 10px; right: 10px; z-index: 10;
+            color: var(--main-red); font-weight: bold;
+            border: 1px solid var(--main-red); padding: 5px;
+            background: rgba(0,0,0,0.7); pointer-events: none;
+        }
+
+        /* Right Col: Archives */
+        .right-col { overflow-y: auto; }
+        /* Cacher la scrollbar pour faire plus propre */
+        .right-col::-webkit-scrollbar { width: 4px; }
+        .right-col::-webkit-scrollbar-thumb { background: var(--main-cyan); }
+        
+        .case-file {
+            border-left: 3px solid var(--main-cyan); padding-left: 10px; margin-bottom: 15px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+        .case-file h3 { margin: 0 0 5px 0; font-size: 14px; color: var(--main-green); text-transform: uppercase;}
+        .case-file p { margin: 0; font-size: 12px; color: #b3e5fc; line-height: 1.4; }
+
+        /* Bottom Row: Terminal */
+        .bottom-row { overflow: hidden; }
+        #terminal-output { font-size: 13px; color: var(--main-green); line-height: 1.4; }
+
+        .section-title {
+            background: var(--main-cyan); color: #000; display: inline-block;
+            padding: 2px 10px; margin-top: -15px; font-weight: bold; text-transform: uppercase;
+            font-size: 12px; position: absolute; top: 0; left: 15px;
+        }
+        
+        /* Cacher le h2 SEO pour les humains, le garder pour Google */
+        .visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Structure HTML Sémantique pour le SEO (h1, section, main...) déguisée en Dashboard -->
+    <main class="dashboard">
+        
+        <!-- HEADER -->
+        <header class="panel header">
+            <h1>UAP COMMAND CENTER // <span class="blink" style="color: var(--main-cyan);">LIVE FEED</span></h1>
+            <div style="font-size: 12px; text-align: right;">
+                STATUS: <span style="color: var(--main-red);">NIVEAU ROUGE</span> | 
+                CRYPTAGE: <span style="color: var(--main-green);">RSA-4096</span><br>
+                <span id="clock"></span>
+            </div>
+        </header>
+
+        <!-- LEFT COL: RADAR & TELEMETRY -->
+        <aside class="panel left-col">
+            <div class="section-title">CAPTEURS LOCAUX</div>
+            <h2 class="visually-hidden">Analyse des données radars et télémétrie des OVNIS</h2>
+            <br>
+            <div class="radar-container">
+                <div class="radar-grid"></div>
+                <div class="radar-sweep"></div>
+                <div class="target" style="top: 30%; left: 60%;"></div>
+                <div class="target" style="top: 70%; left: 20%; animation-delay: 1s;"></div>
+            </div>
+            <div style="font-size: 12px; line-height: 1.8;">
+                > BALAYAGE RADAR : <span style="color:var(--main-green)">NOMINAL</span><br>
+                > SPECTROMÉTRIE : <span style="color:var(--main-red)">ANOMALIE (MICRO-ONDES)</span><br>
+                > SIGNATURE THERMIQUE : <span style="color:var(--main-cyan)">NÉGATIVE</span><br>
+                > CINÉMATIQUE : MACH 15 ESTIMÉ<br>
+                > BANG SONIQUE : NON DÉTECTÉ
+            </div>
+        </aside>
+
+        <!-- CENTER COL: MAIN VIDEO FEED -->
+        <section class="panel center-col">
+            <div class="section-title">FLUX AUDIO/VIDÉO PRINCIPAL</div>
+            <h2 class="visually-hidden">Vidéo d'investigation sur les PAN, archives militaires et GEIPAN</h2>
+            
+            <div class="video-wrapper">
+                <div class="target-lock blink">TRACKING ENGAGED</div>
+                <!-- Vidéo YouTube Embeddée -->
+                <iframe src="https://www.youtube.com/embed/U3ywiWYSbXQ" 
+                        title="Hors Série - Hors Sujet : Les OVNIS sont-iels les bienvenus ?" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <p style="text-align: center; font-size: 11px; margin-top: 15px; color: #aaa;">SOURCE: Analyse multicapteurs croisée. Base de données AARO et Gendarmerie Nationale (GEIPAN).</p>
+        </section>
+
+        <!-- RIGHT COL: CASE FILES -->
+        <section class="panel right-col">
+            <div class="section-title">ARCHIVES DÉCLASSIFIÉES (CAT D)</div>
+            <h2 class="visually-hidden">Rapports historiques inexpliqués : Nimitz, Téhéran, Trans-en-Provence</h2>
+            <br>
+            <div class="case-file">
+                <h3>[1976] INCIDENT DE TÉHÉRAN</h3>
+                <p><strong>Vecteur:</strong> F-4 Phantom II<br>
+                <strong>Événement:</strong> Perte totale télémétrie et systèmes d'armement à 25 NM de la cible. Brouillage électromagnétique chirurgical confirmant une capacité de guerre asymétrique.</p>
+            </div>
+            <div class="case-file">
+                <h3>[1981] TRANS-EN-PROVENCE</h3>
+                <p><strong>Vecteur:</strong> Empreinte au sol (Étude GEIPAN/INRA)<br>
+                <strong>Événement:</strong> Pression au sol : 4-5 tonnes. Choc thermique : 300-600°C. Destruction de 50% de la chlorophylle (Luzerne), signature d'un rayonnement micro-ondes pulsé localisé.</p>
+            </div>
+            <div class="case-file">
+                <h3>[2004] USS NIMITZ (TIC-TAC)</h3>
+                <p><strong>Vecteur:</strong> F/A-18 Super Hornet & Radar AEGIS<br>
+                <strong>Événement:</strong> Chute d'altitude (80k ft à 0 ft) en < 1 sec. Aucune surface de vol, aucune émission thermodynamique. Déplacement transmédium (air/eau) confirmé.</p>
+            </div>
+        </section>
+
+        <!-- BOTTOM ROW: TERMINAL -->
+        <footer class="panel bottom-row">
+            <div class="section-title">TERMINAL DE COMMANDES</div>
+            <h2 class="visually-hidden">Conclusions scientifiques sur les limites du modèle socio-psychologique</h2>
+            <div id="terminal-output" style="margin-top: 10px;"></div>
+        </footer>
+
+    </main>
+
+    <!-- ==========================================
+         SCRIPTS (HORLOGE & ANIMATION TERMINAL)
+         ========================================== -->
+    <script>
+        // Gestion de l'horloge ZULU (UTC)
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' ZULU';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Animation d'écriture du Terminal (contenant des mots clés SEO contextuels)
+        const lines = [
+            "INITIALISATION DU SYSTÈME D'ANALYSE AÉROSPATIALE [UAP/PAN]...",
+            "CONNEXION AUX SERVEURS SÉCURISÉS DU GEIPAN [OK]",
+            "EXTRACTION DES DONNÉES RADAR ET INFRAROUGE [FLIR]...",
+            "ÉVALUATION EN COURS : MODÈLE SOCIO-PSYCHOLOGIQUE vs MATÉRIALITÉ...",
+            "> ALERTE : La perte biochimique (chlorophylle) invalide l'hypothèse de l'illusion d'optique (Trans-en-Provence).",
+            "> ALERTE : Accélération balistique (Mach 15) incompatible avec l'ingénierie des matériaux actuelle (Nimitz).",
+            "CONCLUSION TEMPORAIRE : Noyau dur de 3.3% de cas (Cat. D) validé scientifiquement.",
+            "EN ATTENTE DE NOUVELLES DIRECTIVES DE DÉCLASSIFICATION..."
+        ];
+        
+        let lineIndex = 0;
+        let charIndex = 0;
+        const terminal = document.getElementById('terminal-output');
+
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                if (charIndex < lines[lineIndex].length) {
+                    terminal.innerHTML += lines[lineIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeLine, 15); // Vitesse de frappe (rapide)
+                } else {
+                    terminal.innerHTML += "<br>";
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeLine, 400); // Pause à la fin de la ligne
+                }
+            } else {
+                terminal.innerHTML += "<span class='blink'>_</span>";
+            }
+        }
+
+        // Lancer l'animation après 1 seconde
+        setTimeout(typeLine, 1000);
+    </script>
+</body>
+</html>
