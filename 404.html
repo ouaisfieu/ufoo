@@ -1,602 +1,641 @@
 <!--
-  ORBITAL MEDIA COMMAND // SECTOR-7
-  A Hollywood-OS mission-control shell wrapped around a real YouTube feed.
+  ARCHIVE PAN · UAP — Reconnaissances institutionnelles 2017–2026
+  Page d'ufologie. Terminal d'archive déclassifiée.
+  Contenu : dossier de recherche fourni par l'auteur.
+  Principe directeur tenu de bout en bout : « inexpliqué » ≠ « extraterrestre ».
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ORBITAL MEDIA COMMAND</title>
+<title>ARCHIVE PAN·UAP — Reconnaissances institutionnelles 2017–2026</title>
+<meta name="description" content="Dossier d'ufologie : ce qui est officiellement reconnu, ce qui reste inexpliqué selon les institutions, et ce qui relève d'allégations non vérifiées. Aucune institution n'a conclu à une origine extraterrestre.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --void:#040711;
-    --void-2:#070c1a;
-    --panel:#0a1322;
-    --panel-2:#0c1830;
-    --line:#163252;
-    --line-bright:#1f4a78;
-    --cyan:#46e5ff;
-    --cyan-dim:#2a8aa8;
-    --go:#5cffa8;
-    --warn:#ffb23d;
-    --crit:#ff4b33;
-    --ink:#cfe6ff;
-    --ink-dim:#6e8bb0;
-    --ink-faint:#3c577a;
-    --glow:0 0 12px rgba(70,229,255,.45);
+    --void:#040711;--panel:#0a1322;--panel-2:#0c1830;
+    --line:#163252;--line-bright:#1f4a78;
+    --acc:70,229,255;--cyan:rgb(var(--acc));--cyan-dim:rgba(var(--acc),.62);
+    --go:#5cffa8;--warn:#ffb23d;--crit:#ff5a47;
+    --ink:#d7e8ff;--ink-mid:#9fb6d6;--ink-dim:#6e8bb0;--ink-faint:#3c577a;
+    --glow:0 0 12px rgba(var(--acc),.40);
+    --maxw:1180px;
   }
-
+  :root[data-theme="amber"]{--acc:255,178,61}
+  :root[data-theme="green"]{--acc:124,255,160}
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    background:
-      radial-gradient(1200px 700px at 70% -10%, rgba(31,74,120,.25), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, rgba(255,75,51,.08), transparent 55%),
-      var(--void);
-    color:var(--ink);
-    font-family:"Share Tech Mono", ui-monospace, monospace;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--ink);font-family:"Chakra Petch",system-ui,sans-serif;font-weight:400;line-height:1.62;
+    background:radial-gradient(1200px 720px at 72% -8%,rgba(var(--acc),.10),transparent 60%),
+      radial-gradient(900px 600px at -10% 108%,rgba(255,90,71,.05),transparent 55%),var(--void);
+    overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"Share Tech Mono",ui-monospace,monospace}
+  a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
 
-  /* ambient starfield + grid */
+  /* ambient */
   .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
-  .bg .grid{
-    position:absolute;inset:-2px;
-    background-image:
-      linear-gradient(rgba(31,74,120,.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(31,74,120,.12) 1px, transparent 1px);
-    background-size:46px 46px;
-    mask-image:radial-gradient(circle at 50% 40%, #000 30%, transparent 85%);
-    animation:gridpulse 7s ease-in-out infinite;
-  }
-  @keyframes gridpulse{0%,100%{opacity:.5}50%{opacity:.85}}
-  .bg .scan{
-    position:absolute;left:0;right:0;height:160px;
-    background:linear-gradient(180deg, transparent, rgba(70,229,255,.06) 45%, rgba(70,229,255,.10) 50%, transparent);
-    animation:scan 6s linear infinite;
-  }
-  @keyframes scan{0%{top:-160px}100%{top:100%}}
-  .bg .vig{position:absolute;inset:0;box-shadow:inset 0 0 240px rgba(0,0,0,.85);}
+  .bg .grid{position:absolute;inset:-2px;background-image:
+    linear-gradient(rgba(var(--acc),.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--acc),.07) 1px,transparent 1px);
+    background-size:48px 48px;mask-image:radial-gradient(circle at 50% 22%,#000 18%,transparent 78%)}
+  .bg .scan{position:absolute;left:0;right:0;height:180px;background:linear-gradient(180deg,transparent,rgba(var(--acc),.045) 50%,transparent);animation:scan 9s linear infinite}
+  @keyframes scan{0%{top:-180px}100%{top:100%}}
+  .bg .vig{position:absolute;inset:0;box-shadow:inset 0 0 260px rgba(0,0,0,.8)}
 
-  /* ---------- shell ---------- */
-  .shell{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:16px;}
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-  .hud-font{font-family:"Chakra Petch",sans-serif}
-
-  /* command strip */
-  .strip{
-    display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;
-    border:1px solid var(--line-bright);
-    background:linear-gradient(180deg,var(--panel-2),var(--panel));
-    padding:10px 14px;
-    clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);
-    box-shadow:var(--glow), inset 0 0 40px rgba(31,74,120,.18);
-  }
-  .strip .seal{
-    width:44px;height:44px;border-radius:50%;flex:none;
-    border:1.5px solid var(--cyan);position:relative;
-    display:grid;place-items:center;
-    box-shadow:var(--glow);
-  }
-  .strip .seal::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1px dashed var(--cyan-dim);animation:spin 16s linear infinite}
-  .strip .seal b{font-family:"Chakra Petch";font-size:13px;color:var(--cyan);letter-spacing:.5px}
+  /* command strip / nav */
+  .strip{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line-bright);background:rgba(6,11,22,.86);backdrop-filter:blur(8px);
+    padding:9px 20px;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+  .strip .seal{width:38px;height:38px;border-radius:50%;flex:none;border:1.5px solid var(--cyan);display:grid;place-items:center;position:relative;box-shadow:var(--glow)}
+  .strip .seal::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px dashed var(--cyan-dim);animation:spin 18s linear infinite}
+  .strip .seal b{font-family:"Chakra Petch";font-weight:700;font-size:11px;color:var(--cyan)}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .strip .title{display:flex;flex-direction:column;justify-content:center;min-width:230px}
-  .strip .title h1{margin:0;font-family:"Chakra Petch";font-weight:700;font-size:18px;letter-spacing:3px;color:var(--ink)}
-  .strip .title small{color:var(--ink-dim);letter-spacing:2px;font-size:11px}
+  .strip h1{margin:0;font-family:"Chakra Petch";font-weight:700;font-size:15px;letter-spacing:2px}
+  .strip h1 small{display:block;font-weight:400;font-size:10px;letter-spacing:2px;color:var(--ink-dim)}
   .strip .spacer{flex:1}
-  .meter{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 14px;border-left:1px solid var(--line)}
-  .meter .k{font-size:10px;letter-spacing:2px;color:var(--ink-faint)}
-  .meter .v{font-family:"Chakra Petch";font-weight:600;font-size:16px;color:var(--cyan);text-shadow:var(--glow)}
-  .meter .v.go{color:var(--go)} .meter .v.warn{color:var(--warn)}
-  .pill{display:inline-flex;align-items:center;gap:7px;font-family:"Chakra Petch";font-weight:600;font-size:13px;letter-spacing:2px}
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--go);box-shadow:0 0 10px var(--go);animation:blink 1.6s steps(1) infinite}
-  .dot.warn{background:var(--warn);box-shadow:0 0 10px var(--warn)}
-  .dot.crit{background:var(--crit);box-shadow:0 0 10px var(--crit)}
-  @keyframes blink{0%,70%{opacity:1}71%,100%{opacity:.25}}
+  .strip .clk{font-family:"Share Tech Mono";font-size:12px;color:var(--cyan);text-shadow:var(--glow);white-space:nowrap}
+  .strip .ctrls{display:flex;gap:6px}
+  .ctlb{font-family:"Chakra Petch";font-weight:600;font-size:10px;letter-spacing:1px;color:var(--ink-mid);background:transparent;border:1px solid var(--line-bright);padding:6px 8px;cursor:pointer;border-radius:2px}
+  .ctlb:hover{border-color:var(--cyan);color:var(--cyan)}.ctlb.off{color:var(--ink-faint)}
+  nav.anchors{position:relative;z-index:19;border-bottom:1px solid var(--line);background:rgba(6,11,22,.6)}
+  nav.anchors .inner{max-width:var(--maxw);margin:0 auto;padding:8px 20px;display:flex;gap:18px;flex-wrap:wrap;font-family:"Chakra Petch";font-weight:600;font-size:11px;letter-spacing:1.5px}
+  nav.anchors a{color:var(--ink-dim)}nav.anchors a:hover{color:var(--cyan);text-decoration:none}
 
-  /* main grid */
-  .deck{display:grid;grid-template-columns:230px 1fr 230px;gap:12px;margin-top:12px}
-  .col{display:flex;flex-direction:column;gap:12px}
+  /* section scaffolding */
+  section{padding:54px 0;position:relative}
+  .eyebrow{font-family:"Share Tech Mono";font-size:12px;letter-spacing:3px;color:var(--cyan);text-shadow:var(--glow);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan);box-shadow:var(--glow)}
+  h2.sec{font-family:"Chakra Petch";font-weight:700;font-size:clamp(24px,4vw,38px);line-height:1.1;letter-spacing:.5px;margin:0 0 18px}
+  h3{font-family:"Chakra Petch";font-weight:700;letter-spacing:.5px;margin:0 0 8px;font-size:18px}
+  p{margin:0 0 14px;color:var(--ink-mid);max-width:74ch}
+  .lead{font-size:18px;color:var(--ink);max-width:72ch}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
 
-  .panel{
-    border:1px solid var(--line);
-    background:linear-gradient(180deg, rgba(12,24,48,.7), rgba(10,19,34,.7));
-    position:relative;
-  }
-  .panel.notch{clip-path:polygon(10px 0,100% 0,100% 100%,0 100%,0 10px)}
-  .panel > .ph{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:7px 11px;border-bottom:1px solid var(--line);
-    font-family:"Chakra Petch";font-weight:600;letter-spacing:2px;font-size:11px;color:var(--ink-dim);
-    background:rgba(31,74,120,.10);
-  }
-  .panel > .ph .id{color:var(--cyan-dim)}
-  .panel .body{padding:11px}
+  /* badges */
+  .badge{display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch";font-weight:700;font-size:10.5px;letter-spacing:1.2px;
+    padding:3px 9px;border-radius:2px;border:1px solid;white-space:nowrap;vertical-align:middle}
+  .badge::before{content:"";width:7px;height:7px;border-radius:50%}
+  .badge.n1{color:var(--go);border-color:rgba(124,255,160,.5);background:rgba(124,255,160,.07)} .badge.n1::before{background:var(--go);box-shadow:0 0 8px var(--go)}
+  .badge.n2{color:var(--warn);border-color:rgba(255,178,61,.5);background:rgba(255,178,61,.07)} .badge.n2::before{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+  .badge.n3{color:var(--crit);border-color:rgba(255,90,71,.5);background:rgba(255,90,71,.07)} .badge.n3::before{background:var(--crit);box-shadow:0 0 8px var(--crit)}
+  .badge.an{color:var(--cyan);border-color:rgba(var(--acc),.5);background:rgba(var(--acc),.07)} .badge.an::before{background:var(--cyan);box-shadow:var(--glow)}
 
-  /* subsystem rows */
-  .sys{display:flex;flex-direction:column;gap:9px}
-  .sysrow{display:grid;grid-template-columns:1fr auto;gap:4px}
-  .sysrow .lab{display:flex;align-items:center;gap:7px;font-size:12px;letter-spacing:1px;color:var(--ink)}
-  .sysrow .st{font-family:"Chakra Petch";font-size:11px;font-weight:600;letter-spacing:1px;color:var(--go)}
-  .sysrow .st.warn{color:var(--warn)} .sysrow .st.crit{color:var(--crit)}
-  .bar{grid-column:1/-1;height:5px;background:#0a1426;border:1px solid var(--line);overflow:hidden;position:relative}
-  .bar > i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));box-shadow:var(--glow);transition:width .5s ease}
-  .bar.go > i{background:linear-gradient(90deg,#2f8f63,var(--go))}
-  .bar.warn > i{background:linear-gradient(90deg,#9a6a1f,var(--warn))}
+  /* generic panel */
+  .panel{border:1px solid var(--line);background:linear-gradient(180deg,rgba(12,24,48,.55),rgba(8,15,28,.55));position:relative}
+  .panel.notch{clip-path:polygon(12px 0,100% 0,100% 100%,0 100%,0 12px)}
+  .panel .ph{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);
+    font-family:"Chakra Petch";font-weight:700;letter-spacing:2px;font-size:12px;color:var(--ink-dim);background:rgba(var(--acc),.06)}
+  .panel .ph .id{color:var(--cyan-dim);font-family:"Share Tech Mono";font-weight:400}
+  .panel .pb{padding:16px 18px}
 
-  /* viewport */
-  .viewport{position:relative;border:1px solid var(--line-bright);background:#000;box-shadow:var(--glow), inset 0 0 60px rgba(0,0,0,.9)}
-  .vp-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel))}
-  .vp-head .l{display:flex;align-items:center;gap:10px;font-family:"Chakra Petch";font-weight:600;letter-spacing:2px;font-size:12px}
-  .vp-head .rec{display:inline-flex;align-items:center;gap:6px;color:var(--crit);font-family:"Chakra Petch";font-weight:600;font-size:11px;letter-spacing:1px}
+  /* TRIAGE signature */
+  .triage{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+  .lvl{border:1px solid var(--line);background:rgba(8,16,30,.6);padding:16px;position:relative;overflow:hidden;
+    clip-path:polygon(10px 0,100% 0,100% 100%,0 100%,0 10px)}
+  .lvl::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+  .lvl.n1::after{background:var(--go);box-shadow:0 0 12px var(--go)}
+  .lvl.n2::after{background:var(--warn);box-shadow:0 0 12px var(--warn)}
+  .lvl.n3::after{background:var(--crit);box-shadow:0 0 12px var(--crit)}
+  .lvl .num{font-family:"Share Tech Mono";font-size:11px;letter-spacing:2px;color:var(--ink-faint)}
+  .lvl h3{font-size:16px;margin:4px 0 8px}
+  .lvl p{font-size:13.5px;margin:0;color:var(--ink-mid)}
+
+  .keyline{margin:26px 0;border:1px solid var(--line-bright);background:linear-gradient(180deg,rgba(var(--acc),.08),rgba(8,15,28,.5));
+    padding:22px 24px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);box-shadow:var(--glow)}
+  .keyline .big{font-family:"Chakra Petch";font-weight:700;font-size:clamp(18px,2.6vw,26px);line-height:1.25;color:var(--ink);letter-spacing:.5px}
+  .keyline .sub{margin:10px 0 0;color:var(--ink-mid);font-size:14px;max-width:80ch}
+
+  /* viewer */
+  .viewer{display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start}
+  .viewport{border:1px solid var(--line-bright);background:#000;box-shadow:var(--glow),inset 0 0 50px rgba(0,0,0,.9);position:relative}
+  .vp-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));font-family:"Chakra Petch";font-weight:600;letter-spacing:2px;font-size:11px}
+  .vp-head .rec{display:inline-flex;align-items:center;gap:6px;color:var(--crit)}
   .vp-head .rec .d{width:8px;height:8px;border-radius:50%;background:var(--crit);box-shadow:0 0 8px var(--crit);animation:blink 1.1s steps(1) infinite}
-  .vp-head .coords{color:var(--ink-faint);font-size:11px;letter-spacing:1px}
-
-  .screen{position:relative;aspect-ratio:16/9;width:100%;background:#000;overflow:hidden}
-  .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  /* feed overlays */
+  @keyframes blink{0%,70%{opacity:1}71%,100%{opacity:.25}}
+  .screen{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+  #yt,#yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .ovl{position:absolute;inset:0;pointer-events:none;z-index:3}
-  .ovl .lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.16) 2px 3px);mix-blend-mode:multiply;opacity:.5}
-  .ovl .sweep{position:absolute;left:0;right:0;height:34%;top:-34%;background:linear-gradient(180deg,transparent,rgba(70,229,255,.08),transparent);animation:vsweep 5s linear infinite}
-  @keyframes vsweep{to{top:100%}}
-  .ovl .br{position:absolute;width:26px;height:26px;border:2px solid var(--cyan);opacity:.85;filter:drop-shadow(0 0 5px rgba(70,229,255,.6))}
-  .ovl .br.tl{top:10px;left:10px;border-right:0;border-bottom:0}
-  .ovl .br.tr{top:10px;right:10px;border-left:0;border-bottom:0}
-  .ovl .br.bl{bottom:10px;left:10px;border-right:0;border-top:0}
-  .ovl .br.brr{bottom:10px;right:10px;border-left:0;border-top:0}
-  .ovl .tag{position:absolute;left:14px;bottom:14px;font-family:"Chakra Petch";font-size:11px;letter-spacing:2px;color:var(--cyan);text-shadow:var(--glow)}
-  .ovl .tag2{position:absolute;right:14px;top:44px;font-size:11px;letter-spacing:1px;color:var(--ink-dim);text-align:right;line-height:1.5}
-
-  /* standby / boot inside screen */
+  .ovl .lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.14) 2px 3px);mix-blend-mode:multiply;opacity:.45}
+  .br{position:absolute;width:22px;height:22px;border:2px solid var(--cyan);opacity:.8;filter:drop-shadow(0 0 4px rgba(var(--acc),.6))}
+  .br.tl{top:9px;left:9px;border-right:0;border-bottom:0}.br.tr{top:9px;right:9px;border-left:0;border-bottom:0}
+  .br.bl{bottom:9px;left:9px;border-right:0;border-top:0}.br.brr{bottom:9px;right:9px;border-left:0;border-top:0}
+  .crton{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:#dffaff;transform-origin:center}
+  .crton.go{animation:crton .5s ease}
+  @keyframes crton{0%{opacity:0;transform:scaleY(.004)}24%{opacity:.9;transform:scaleY(.004)}50%{opacity:.8;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
   .standby{position:absolute;inset:0;z-index:4;display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,#0a1730,#020409);text-align:center}
-  .standby .core{font-family:"Chakra Petch"}
-  .standby h2{margin:0;font-size:22px;letter-spacing:6px;color:var(--cyan);text-shadow:var(--glow);animation:nosig 2s steps(2) infinite}
-  @keyframes nosig{0%,80%{opacity:1}81%,100%{opacity:.35}}
+  .standby h4{margin:0;font-family:"Chakra Petch";font-weight:700;font-size:18px;letter-spacing:5px;color:var(--cyan);text-shadow:var(--glow);animation:nosig 2.2s steps(2) infinite}
+  @keyframes nosig{0%,80%{opacity:1}81%,100%{opacity:.4}}
   .standby p{margin:8px 0 0;color:var(--ink-dim);letter-spacing:2px;font-size:12px}
-  .standby .ringwrap{position:relative;width:120px;height:120px;margin:0 auto 18px}
-  .standby .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line-bright)}
-  .standby .ring.s{animation:spin 8s linear infinite}
-  .standby .ring.s::before{content:"";position:absolute;top:-4px;left:50%;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:var(--glow);transform:translateX(-50%)}
-  .standby .ring.s2{inset:18px;border-style:dashed;border-color:var(--cyan-dim);animation:spin 5s linear infinite reverse}
 
-  /* transport */
-  .console{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));padding:11px 12px;display:flex;flex-direction:column;gap:11px}
-  .traj{display:flex;align-items:center;gap:12px}
-  .traj .t{font-family:"Chakra Petch";font-size:12px;color:var(--cyan);min-width:54px;text-align:center}
-  .track{flex:1;height:8px;background:#081124;border:1px solid var(--line);position:relative;cursor:pointer}
-  .track .buf{position:absolute;left:0;top:0;bottom:0;background:rgba(70,229,255,.14)}
-  .track .prog{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));box-shadow:var(--glow)}
-  .track .head{position:absolute;top:50%;width:3px;height:16px;background:var(--ink);transform:translate(-50%,-50%);box-shadow:0 0 8px #fff}
+  .transport{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));flex-wrap:wrap}
+  .tbtn{font-family:"Chakra Petch";font-weight:600;font-size:12px;letter-spacing:1px;color:var(--ink);background:linear-gradient(180deg,#10233f,#0a1322);border:1px solid var(--line-bright);padding:7px 12px;cursor:pointer;border-radius:2px}
+  .tbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+  .tbtn.primary{color:var(--void);background:linear-gradient(180deg,var(--cyan),var(--cyan-dim));border-color:var(--cyan)}
+  .transport .gap{flex:1}
+  .transport .vol{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-faint);font-family:"Share Tech Mono"}
+  .transport input[type=range]{accent-color:var(--cyan);width:80px}
 
-  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .btn{
-    font-family:"Chakra Petch";font-weight:600;letter-spacing:1.5px;font-size:12px;
-    color:var(--ink);background:linear-gradient(180deg,#10233f,#0a1322);
-    border:1px solid var(--line-bright);padding:8px 13px;cursor:pointer;
-    clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
-    transition:.15s;position:relative;
+  /* playlist */
+  .pllist{display:flex;flex-direction:column;gap:7px}
+  .pli{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);background:#081325;padding:9px 10px;cursor:pointer;transition:.13s;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+  .pli:hover{border-color:var(--cyan)}.pli.active{border-color:var(--cyan);background:rgba(var(--acc),.10)}
+  .pli .n{font-family:"Share Tech Mono";font-size:11px;color:var(--cyan);min-width:16px;padding-top:1px}
+  .pli .t{flex:1;font-size:12.5px;color:var(--ink);line-height:1.35}
+  .pli:focus-visible{outline:2px solid var(--go);outline-offset:2px}
+  .addrow{display:flex;gap:6px;margin-top:10px}
+  .addrow input{flex:1;background:#06101f;border:1px solid var(--line-bright);color:var(--cyan);font-family:"Share Tech Mono";font-size:12px;padding:8px 9px}
+  .addrow input:focus{outline:none;border-color:var(--cyan);box-shadow:var(--glow)}
+  .addrow button{font-family:"Chakra Petch";font-weight:600;font-size:11px;color:var(--void);background:var(--cyan);border:1px solid var(--cyan);padding:0 12px;cursor:pointer}
+
+  /* fiche technique */
+  .fiche dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0 0 12px;font-size:13px}
+  .fiche dt{font-family:"Share Tech Mono";font-size:10.5px;letter-spacing:1px;color:var(--ink-faint);text-transform:uppercase;padding-top:2px}
+  .fiche dd{margin:0;color:var(--ink-mid)}
+  .fiche .blk{border-top:1px solid var(--line);padding-top:11px;margin-top:11px}
+  .fiche .blk .h{font-family:"Chakra Petch";font-weight:700;font-size:11px;letter-spacing:1.5px;color:var(--ink-dim);margin-bottom:5px}
+  .fiche .blk.stat .h{color:var(--go)} .fiche .blk.scep .h{color:var(--warn)}
+  .fiche .blk p{font-size:13px;margin:0;color:var(--ink-mid)}
+
+  /* side monitor (ambient) */
+  .monitor{display:flex;flex-direction:column;gap:10px}
+  .globe{position:relative;width:100%;aspect-ratio:1}
+  .globe canvas{position:absolute;inset:0;width:100%;height:100%}
+  .tg2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cell{border:1px solid var(--line);background:#06101f;padding:7px 9px}
+  .cell .k{font-size:9px;letter-spacing:1px;color:var(--ink-faint);font-family:"Share Tech Mono"}
+  .cell .v{font-family:"Chakra Petch";font-weight:700;font-size:15px;color:var(--cyan);text-shadow:var(--glow)}
+  .cell .v small{font-size:9px;color:var(--ink-dim);font-weight:400}
+
+  /* chart */
+  .chart{display:flex;flex-direction:column;gap:13px;margin:8px 0 4px}
+  .crow{display:grid;grid-template-columns:230px 1fr 56px;gap:12px;align-items:center}
+  .crow .cl{font-size:13px;color:var(--ink);font-family:"Chakra Petch";font-weight:500}
+  .crow .cl small{display:block;color:var(--ink-faint);font-size:11px;font-family:"Share Tech Mono"}
+  .ctrack{height:14px;background:#081124;border:1px solid var(--line);position:relative;overflow:hidden}
+  .ctrack i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));box-shadow:var(--glow);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+  .crow .cv{font-family:"Share Tech Mono";font-size:14px;color:var(--cyan);text-align:right}
+
+  /* country grid */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(12,24,48,.5),rgba(8,15,28,.5));padding:15px 16px;position:relative;
+    clip-path:polygon(10px 0,100% 0,100% 100%,0 100%,0 10px)}
+  .card .flagrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .card .cn{font-family:"Chakra Petch";font-weight:700;font-size:15px;letter-spacing:1px}
+  .card .org{font-family:"Share Tech Mono";font-size:11px;color:var(--cyan);margin-bottom:6px}
+  .card .yr{font-family:"Share Tech Mono";font-size:10px;color:var(--ink-faint);letter-spacing:1px}
+  .card p{font-size:13px;margin:6px 0 0;color:var(--ink-mid)}
+
+  /* case files */
+  .case{border:1px solid var(--line);border-left:3px solid var(--line-bright);background:rgba(8,15,28,.5);padding:18px 20px;margin-bottom:14px}
+  .case.n2{border-left-color:var(--warn)} .case.n1{border-left-color:var(--go)}
+  .case .ch{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .case .ct{font-family:"Chakra Petch";font-weight:700;font-size:17px}
+  .case .meta{font-family:"Share Tech Mono";font-size:11px;color:var(--ink-faint);letter-spacing:1px;margin-bottom:10px}
+  .case .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .case .two .h{font-family:"Chakra Petch";font-weight:700;font-size:11px;letter-spacing:1.5px;margin-bottom:4px}
+  .case .two .h.e{color:var(--go)} .case .two .h.c{color:var(--warn)}
+  .case .two p{font-size:13px;margin:0;color:var(--ink-mid)}
+
+  /* classification */
+  .abcd{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .ab{border:1px solid var(--line);background:#081325;padding:14px;clip-path:polygon(9px 0,100% 0,100% 100%,0 100%,0 9px)}
+  .ab .L{font-family:"Chakra Petch";font-weight:700;font-size:30px;line-height:1;color:var(--cyan);text-shadow:var(--glow)}
+  .ab.d .L{color:var(--warn)}
+  .ab .nm{font-family:"Share Tech Mono";font-size:10px;letter-spacing:1px;color:var(--ink-faint);margin:6px 0 6px}
+  .ab p{font-size:12.5px;margin:0;color:var(--ink-mid)}
+
+  /* timeline */
+  .tl{position:relative;margin-left:6px;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:1px;background:linear-gradient(180deg,var(--cyan),var(--line))}
+  .tle{position:relative;margin-bottom:20px}
+  .tle::before{content:"";position:absolute;left:-26px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--void);border:2px solid var(--cyan);box-shadow:var(--glow)}
+  .tle .dt{font-family:"Share Tech Mono";font-size:12px;color:var(--cyan);letter-spacing:1px}
+  .tle .ti{font-family:"Chakra Petch";font-weight:700;font-size:15px;margin:2px 0 4px}
+  .tle p{font-size:13px;margin:0;color:var(--ink-mid)}
+
+  /* caveats */
+  .cav{border:1px solid var(--line);background:rgba(8,15,28,.5);padding:13px 16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .cav .k{font-family:"Share Tech Mono";font-size:11px;color:var(--warn);letter-spacing:1px;white-space:nowrap;padding-top:2px}
+  .cav p{font-size:13px;margin:0;color:var(--ink-mid)}
+
+  footer{border-top:1px solid var(--line-bright);padding:34px 0 60px;margin-top:30px}
+  footer .fnote{font-size:12.5px;color:var(--ink-dim);max-width:80ch}
+  footer .meta{font-family:"Share Tech Mono";font-size:11px;color:var(--ink-faint);letter-spacing:1px;margin-top:18px}
+
+  /* boot */
+  #boot{position:fixed;inset:0;z-index:60;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;cursor:pointer}
+  #boot .frame{width:min(560px,92vw);border:1px solid var(--line-bright);padding:22px 24px;box-shadow:var(--glow)}
+  #boot pre{margin:0 0 10px;color:var(--cyan);font-size:10px;line-height:1.2;text-shadow:var(--glow)}
+  #boot .lines{font-family:"Share Tech Mono";font-size:13px;line-height:1.7;min-height:150px}
+  #boot .hint{color:var(--ink-faint);font-size:11px;letter-spacing:2px;animation:blink 1.4s steps(1) infinite}
+  #boot.gone{opacity:0;pointer-events:none;transition:opacity .55s}
+  #boot .ok{color:var(--go)}#boot .warn{color:var(--warn)}#boot .info{color:var(--cyan)}
+
+  @media (max-width:920px){
+    .viewer{grid-template-columns:1fr}
+    .triage,.grid3,.abcd{grid-template-columns:1fr}
+    .case .two{grid-template-columns:1fr}
+    .crow{grid-template-columns:1fr 1fr 44px}
+    nav.anchors{display:none}
   }
-  .btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:var(--glow)}
-  .btn:active{transform:translateY(1px)}
-  .btn.primary{color:var(--void);background:linear-gradient(180deg,var(--cyan),var(--cyan-dim));border-color:var(--cyan)}
-  .btn.primary:hover{color:var(--void);box-shadow:0 0 18px rgba(70,229,255,.7)}
-  .btn.crit{border-color:#7a2a22}.btn.crit:hover{border-color:var(--crit);color:var(--crit);box-shadow:0 0 12px rgba(255,75,51,.4)}
-  .btn:focus-visible{outline:2px solid var(--go);outline-offset:2px}
-  .spacer-c{flex:1}
-  .vol{display:flex;align-items:center;gap:8px}
-  .vol input[type=range]{accent-color:var(--cyan);width:90px}
-
-  .uplink{display:flex;gap:8px;align-items:center}
-  .uplink .lab{font-family:"Chakra Petch";font-size:11px;letter-spacing:2px;color:var(--ink-faint);white-space:nowrap}
-  .uplink input[type=text]{
-    flex:1;background:#06101f;border:1px solid var(--line-bright);color:var(--cyan);
-    font-family:"Share Tech Mono";font-size:13px;padding:9px 11px;letter-spacing:1px;
-  }
-  .uplink input[type=text]:focus{outline:none;border-color:var(--cyan);box-shadow:var(--glow)}
-  .uplink input::placeholder{color:var(--ink-faint)}
-
-  /* telemetry right */
-  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-  .cell{border:1px solid var(--line);background:#06101f;padding:8px 9px}
-  .cell .k{font-size:9.5px;letter-spacing:1.5px;color:var(--ink-faint)}
-  .cell .v{font-family:"Chakra Petch";font-weight:600;font-size:17px;color:var(--cyan);text-shadow:var(--glow);line-height:1.2}
-  .cell .v small{font-size:10px;color:var(--ink-dim);font-weight:400}
-  .cell .v.go{color:var(--go)}.cell .v.warn{color:var(--warn)}
-
-  .radar{position:relative;width:100%;aspect-ratio:1;margin-top:2px}
-  .radar canvas{position:absolute;inset:0;width:100%;height:100%}
-
-  .eq{display:flex;align-items:flex-end;gap:3px;height:46px;margin-top:6px;padding:0 2px}
-  .eq i{flex:1;background:linear-gradient(180deg,var(--cyan),var(--cyan-dim));box-shadow:var(--glow);height:20%;transition:height .12s linear}
-
-  /* console log */
-  .logpanel{margin-top:12px}
-  .log{height:132px;overflow-y:auto;padding:9px 12px;font-size:12px;line-height:1.55;background:#05101e}
-  .log::-webkit-scrollbar{width:8px}.log::-webkit-scrollbar-thumb{background:var(--line-bright)}
-  .log .ln{white-space:pre-wrap;word-break:break-word}
-  .log .ts{color:var(--ink-faint)}
-  .log .ok{color:var(--go)} .log .info{color:var(--cyan)} .log .warn{color:var(--warn)} .log .crit{color:var(--crit)}
-
-  footer{margin:14px 4px 8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--ink-faint);font-size:11px;letter-spacing:1px}
-
-  /* boot overlay (fullscreen) */
-  #boot{position:fixed;inset:0;z-index:50;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;cursor:pointer}
-  #boot .frame{width:min(560px,90vw);border:1px solid var(--line-bright);padding:22px 24px;box-shadow:var(--glow)}
-  #boot h3{font-family:"Chakra Petch";letter-spacing:5px;margin:0 0 14px;color:var(--cyan);text-shadow:var(--glow);font-size:18px}
-  #boot .lines{font-size:13px;line-height:1.7;min-height:170px}
-  #boot .hint{color:var(--ink-faint);font-size:11px;letter-spacing:2px;text-align:center}
-  #boot.gone{opacity:0;pointer-events:none;transition:opacity .6s}
-
-  @media (max-width:980px){
-    .deck{grid-template-columns:1fr}
-    .col.side{flex-direction:row;flex-wrap:wrap}
-    .col.side .panel{flex:1;min-width:220px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none !important}
-    .ovl .sweep,.bg .scan{display:none}
-  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}.bg .scan{display:none}}
 </style>
 
-<div class="bg" aria-hidden="true">
-  <div class="grid"></div>
-  <div class="scan"></div>
-  <div class="vig"></div>
-</div>
+<div class="bg" aria-hidden="true"><div class="grid"></div><div class="scan"></div><div class="vig"></div></div>
 
 <!-- BOOT -->
-<div id="boot" role="dialog" aria-label="System boot">
+<div id="boot" role="dialog" aria-label="Accès archives">
   <div class="frame">
-    <h3>ORBITAL MEDIA COMMAND</h3>
+    <pre>  ___  ___ _  _   _   _   _   _   ___
+ | _ \/ _ \ \| | / | | | | /_\ | _ \   ARCHIVE
+ |  _/ (_) | .` | | |_| |/ _ \|  _/   DÉCLASSIFIÉE
+ |_|  \___/|_|\_|  \___//_/ \_\_|     2017 · 2026</pre>
     <div class="lines" id="bootlines"></div>
   </div>
-  <div class="hint">[ CLIQUEZ POUR INITIALISER LE TERMINAL ]</div>
+  <div class="hint">[ CLIQUEZ POUR ACCÉDER AUX ARCHIVES ]</div>
 </div>
 
-<div class="shell">
-  <!-- COMMAND STRIP -->
-  <div class="strip hud-font">
-    <div class="seal"><b>OMC</b></div>
-    <div class="title">
-      <h1>ORBITAL MEDIA COMMAND</h1>
-      <small>SECTOR-7 · UPLINK TERMINAL v4.2</small>
-    </div>
-    <div class="spacer"></div>
-    <div class="meter"><span class="k">UTC</span><span class="v" id="utc">--:--:--</span></div>
-    <div class="meter"><span class="k">MISSION CLOCK</span><span class="v go" id="met">T+ 00:00:00</span></div>
-    <div class="meter"><span class="k">CORE LOAD</span><span class="v" id="load">00%</span></div>
-    <div class="meter"><span class="k">STATUS</span><span class="pill"><span class="dot" id="statdot"></span><span id="stattxt">NOMINAL</span></span></div>
+<!-- STRIP -->
+<header class="strip">
+  <div class="seal"><b>PAN</b></div>
+  <h1>ARCHIVE PAN · UAP<small>RECONNAISSANCES INSTITUTIONNELLES — 2017 / 2026</small></h1>
+  <div class="spacer"></div>
+  <div class="clk" id="clk">UTC --:--:--</div>
+  <div class="ctrls">
+    <button class="ctlb off" id="tgSound" title="Son d'ambiance">SON ◻</button>
+    <button class="ctlb" id="tgTheme" title="Thème">THÈME</button>
   </div>
+</header>
+<nav class="anchors"><div class="inner">
+  <a href="#cadre">Cadre</a><a href="#sequences">Séquences</a><a href="#residu">Résidu</a>
+  <a href="#institutions">Institutions</a><a href="#dossiers">Dossiers</a><a href="#classification">Classification</a>
+  <a href="#chronologie">Chronologie</a><a href="#allegations">Allégations</a><a href="#garde">Mises en garde</a>
+</div></nav>
 
-  <!-- DECK -->
-  <div class="deck">
-    <!-- LEFT: SYSTEMS -->
-    <div class="col side">
-      <div class="panel notch">
-        <div class="ph hud-font"><span>SUBSYSTEMS</span><span class="id">REG-01</span></div>
-        <div class="body">
-          <div class="sys" id="sys"></div>
-        </div>
+<div class="wrap">
+
+  <!-- CADRE -->
+  <section id="cadre">
+    <div class="eyebrow mono">NOTE MÉTHODOLOGIQUE</div>
+    <h2 class="sec reveal">Trois niveaux de fait,<br>tenus séparés du début à la fin</h2>
+    <p class="lead reveal">Depuis 2017, plusieurs États ont officiellement reconnu que des phénomènes aérospatiaux non identifiés réels sont observés dans leur espace aérien, ont authentifié des enregistrements militaires et ont créé des organismes d'étude dédiés. C'est une rupture historique. Mais une distinction décisive doit être tenue à chaque ligne.</p>
+
+    <div class="triage">
+      <div class="lvl n1 reveal">
+        <div class="num mono">NIVEAU 01</div><h3>Officiellement reconnu</h3>
+        <p>L'existence du phénomène comme objet d'étude légitime, l'authenticité de certaines vidéos, l'existence de programmes gouvernementaux d'étude.</p>
+      </div>
+      <div class="lvl n2 reveal">
+        <div class="num mono">NIVEAU 02</div><h3>Inexpliqué selon les institutions</h3>
+        <p>Les cas pour lesquels aucune explication conventionnelle n'a été identifiée — principalement par insuffisance de données de qualité.</p>
+      </div>
+      <div class="lvl n3 reveal">
+        <div class="num mono">NIVEAU 03</div><h3>Allégations non vérifiées</h3>
+        <p>Témoignages de lanceurs d'alerte sur des programmes secrets de récupération d'épaves, origine extraterrestre, etc. Aucune preuve matérielle publique.</p>
       </div>
     </div>
 
-    <!-- CENTER -->
-    <div class="col">
-      <div class="viewport">
-        <div class="vp-head">
-          <div class="l"><span class="rec"><span class="d"></span>LIVE</span><span>PRIMARY VIEWPORT · CH-07</span></div>
-          <div class="coords" id="vpcoords">LAT --.---- · LON ---.----</div>
-        </div>
-        <div class="screen">
-          <div id="yt-mount"></div>
-          <div class="ovl">
-            <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br brr"></span>
-            <div class="sweep"></div><div class="lines"></div>
-            <div class="tag" id="feedtag">FEED // STANDBY</div>
-            <div class="tag2" id="feedmeta">CODEC H.264<br>GAIN +0.0 dB</div>
+    <div class="keyline reveal">
+      <div class="big">« Inexpliqué » n'a jamais signifié « extraterrestre ».</div>
+      <p class="sub">Aucune institution gouvernementale au monde n'a conclu officiellement à une origine extraterrestre. Toutes reconnaissent au contraire un résidu de cas sans explication conventionnelle. Dans le langage institutionnel, « inexpliqué » signifie « données insuffisantes pour conclure ». Glisser de l'un à l'autre est l'erreur de raisonnement que ce dossier rejette.</p>
+    </div>
+
+    <p class="reveal">Le rapport historique de l'AARO (mars 2024) affirme n'avoir trouvé « aucune preuve empirique » de rétro-ingénierie de technologie extraterrestre ; le panel indépendant de la NASA (septembre 2023) « aucune preuve » d'origine extraterrestre. Le débat 2025-2026 porte désormais moins sur l'existence du phénomène que sur la <strong style="color:var(--ink)">transparence</strong> : déclassification, surclassification présumée, obligations de signalement.</p>
+  </section>
+
+  <!-- SÉQUENCES -->
+  <section id="sequences">
+    <div class="eyebrow mono">PREUVES AUTHENTIFIÉES <span class="badge n1" style="margin-left:4px">NIVEAU 1</span></div>
+    <h2 class="sec reveal">Séquences d'archive</h2>
+    <p class="reveal">L'authentification de ces enregistrements porte sur leur <em>provenance et leur réalité</em>, jamais sur la nature des objets — qui reste « non identifiée ». La contre-analyse sceptique est présentée à côté de chaque cas : c'est exactement la tension que le dossier documente.</p>
+
+    <div class="viewer reveal" style="margin-top:22px">
+      <div>
+        <div class="viewport">
+          <div class="vp-head"><span class="rec"><span class="d"></span>ARCHIVE</span><span id="vplabel">VISEUR · VEILLE</span></div>
+          <div class="screen">
+            <div id="yt"></div>
+            <div class="ovl"><span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br brr"></span><div class="lines"></div></div>
+            <div class="crton" id="crton"></div>
+            <div class="standby" id="standby"><div><h4>SÉLECTIONNER UNE SÉQUENCE</h4><p>ARCHIVE DÉCLASSIFIÉE PRÊTE</p></div></div>
           </div>
-          <div class="standby" id="standby">
-            <div class="core">
-              <div class="ringwrap"><div class="ring"></div><div class="ring s"></div><div class="ring s2"></div></div>
-              <h2>NO SIGNAL</h2>
-              <p>AWAITING TARGET DESIGNATION</p>
+          <div class="transport">
+            <button class="tbtn primary" id="play">▶ LECTURE</button>
+            <button class="tbtn" id="mute">🔊 SON</button>
+            <div class="vol"><span>GAIN</span><input type="range" id="vol" min="0" max="100" value="100"></div>
+            <div class="gap"></div>
+            <button class="tbtn" id="full">⛶ AGRANDIR</button>
+          </div>
+        </div>
+
+        <div class="panel notch fiche" style="margin-top:14px">
+          <div class="ph"><span>FICHE TECHNIQUE</span><span class="id" id="ficheBadge"></span></div>
+          <div class="pb" id="fiche"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel notch">
+          <div class="ph"><span>SÉQUENCES</span><span class="id">REG-FEED</span></div>
+          <div class="pb">
+            <div class="pllist" id="pl"></div>
+            <div class="addrow">
+              <input id="addUrl" spellcheck="false" placeholder="Ajouter une URL / ID YouTube…">
+              <button id="addBtn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel notch monitor" style="margin-top:14px">
+          <div class="ph"><span>BALAYAGE</span><span class="id">SECT-AÉRIEN</span></div>
+          <div class="pb">
+            <div class="globe"><canvas id="globe"></canvas></div>
+            <div class="tg2" style="margin-top:10px">
+              <div class="cell"><div class="k">SIGNAUX / AN</div><div class="v">600–1000<small> CA</small></div></div>
+              <div class="cell"><div class="k">RÉSIDU D</div><div class="v" style="color:var(--warn)">~2<small> %</small></div></div>
+              <div class="cell"><div class="k">CAS AARO</div><div class="v">1600+<small> sig.</small></div></div>
+              <div class="cell"><div class="k">ORIGINE ET</div><div class="v" style="color:var(--go)">0<small> preuve</small></div></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- CONSOLE -->
-      <div class="console hud-font">
-        <div class="traj">
-          <span class="t" id="tcur">00:00</span>
-          <div class="track" id="track"><div class="buf" id="buf"></div><div class="prog" id="prog"></div><div class="head" id="head"></div></div>
-          <span class="t" id="tdur">--:--</span>
+  <!-- RÉSIDU -->
+  <section id="residu">
+    <div class="eyebrow mono">DONNÉES CONVERGENTES</div>
+    <h2 class="sec reveal">Le résidu inexpliqué : ~2 à 5 %</h2>
+    <p class="reveal">Les institutions sérieuses convergent vers un petit noyau de cas qui résistent à l'analyse après enquête approfondie — non parce qu'une origine exotique serait prouvée, mais surtout par <strong style="color:var(--ink)">manque de données de qualité</strong>.</p>
+
+    <div class="panel notch reveal" style="margin-top:20px">
+      <div class="ph"><span>PART DE CAS INEXPLIQUÉS APRÈS ENQUÊTE</span><span class="id">% · sources officielles</span></div>
+      <div class="pb">
+        <div class="chart" id="chart">
+          <div class="crow"><div class="cl">GEIPAN — cat. D <small>2005–2014</small></div><div class="ctrack"><i data-v="2"></i></div><div class="cv">~2 %</div></div>
+          <div class="crow"><div class="cl">CIAE — Argentine <small>Lianza</small></div><div class="ctrack"><i data-v="2"></i></div><div class="cv">~2 %</div></div>
+          <div class="crow"><div class="cl">CRIDOVNI — Uruguay <small>FAU, source off.</small></div><div class="ctrack"><i data-v="3"></i></div><div class="cv">~3 %</div></div>
+          <div class="crow"><div class="cl">GEIPAN — cat. D <small>global ~40 ans</small></div><div class="ctrack"><i data-v="3.4"></i></div><div class="cv">~3,4 %</div></div>
+          <div class="crow"><div class="cl">GEIPAN — cat. D <small>1975–2014</small></div><div class="ctrack"><i data-v="10"></i></div><div class="cv">~10 %</div></div>
         </div>
-        <div class="controls">
-          <button class="btn" id="rew" title="Reculer 10s">&#9194; -10</button>
-          <button class="btn primary" id="play">&#9654; ENGAGE</button>
-          <button class="btn" id="fwd" title="Avancer 10s">+10 &#9193;</button>
-          <button class="btn crit" id="mute">&#128266; MUTE</button>
-          <div class="vol"><span style="font-size:11px;color:var(--ink-faint);letter-spacing:1px">GAIN</span>
-            <input type="range" id="vol" min="0" max="100" value="100" aria-label="Volume"></div>
-          <div class="spacer-c"></div>
-          <button class="btn" id="full">&#9974; EXPAND</button>
-        </div>
-        <div class="uplink">
-          <span class="lab">TARGET DESIGNATION</span>
-          <input type="text" id="url" spellcheck="false"
-                 placeholder="Collez une URL ou un ID YouTube…">
-          <button class="btn primary" id="go">INITIATE UPLINK</button>
-        </div>
+        <p style="font-size:12.5px;color:var(--ink-faint);margin:16px 0 0">Axe : 0 → 12 %. Le taux GEIPAN a baissé d'un facteur ~2,5 (de 10 % à 2 %) parce que l'organisme traite désormais trois fois plus de cas, dont une part croissante de cas banals A/B. Le chiffre uruguayen officiel est <strong style="color:var(--ink-mid)">3 %</strong> (et non 2 %, erreur d'agrégateur fréquente).</p>
       </div>
     </div>
 
-    <!-- RIGHT: TELEMETRY -->
-    <div class="col side">
-      <div class="panel notch">
-        <div class="ph hud-font"><span>TELEMETRY</span><span class="id">REG-02</span></div>
-        <div class="body">
-          <div class="tgrid">
-            <div class="cell"><div class="k">SIGNAL</div><div class="v go" id="t_sig">98<small>%</small></div></div>
-            <div class="cell"><div class="k">BITRATE</div><div class="v" id="t_bit">0.0<small> Mb/s</small></div></div>
-            <div class="cell"><div class="k">ALTITUDE</div><div class="v" id="t_alt">408<small> km</small></div></div>
-            <div class="cell"><div class="k">VELOCITY</div><div class="v" id="t_vel">7.66<small> km/s</small></div></div>
-            <div class="cell"><div class="k">BUFFER</div><div class="v" id="t_buf">0<small>%</small></div></div>
-            <div class="cell"><div class="k">LATENCY</div><div class="v" id="t_lat">042<small> ms</small></div></div>
-          </div>
-          <div class="radar"><canvas id="radar"></canvas></div>
-          <div class="eq" id="eq" aria-hidden="true"></div>
-        </div>
+    <div class="keyline reveal" style="margin-top:20px">
+      <div class="big" style="font-size:clamp(16px,2.2vw,20px)">ODNI, juin 2021 — 144 signalements analysés, <span style="color:var(--cyan)">un seul</span> identifié avec certitude (un ballon).</div>
+      <p class="sub">Les 143 autres restent non expliqués « principalement par manque de données de qualité ». Le rapport ne mentionne aucune origine extraterrestre : « Nous n'avons aucune indication claire qu'il existe une explication non terrestre, mais nous irons là où les données nous mèneront. »</p>
+    </div>
+  </section>
+
+  <!-- INSTITUTIONS -->
+  <section id="institutions">
+    <div class="eyebrow mono">COUVERTURE MONDIALE</div>
+    <h2 class="sec reveal">Cartographie institutionnelle</h2>
+    <p class="reveal">Au moins une douzaine de pays ont mené des enquêtes officielles. Fait souligné par l'AARO elle-même : « tous les efforts d'enquête officiels étrangers à ce jour ont atteint les mêmes conclusions générales » — la plupart des observations sont des objets ordinaires, et la conclusion reste <strong style="color:var(--ink)">uniformément non-extraterrestre</strong>.</p>
+
+    <div class="grid3 reveal" style="margin-top:22px">
+      <div class="card"><div class="flagrow"><span class="cn">🇺🇸 États-Unis</span><span class="badge n1">RECONNU</span></div><div class="org">AARO · ODNI · panel NASA</div><div class="yr">AATIP 2007–12 · AARO 2022</div><p>Du programme secret (AATIP/AAWSAP) à l'institutionnalisation. Rapport ODNI 2021, rapports annuels AARO, rapport historique 2024 : aucune preuve de rétro-ingénierie ET.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇫🇷 France</span><span class="badge n1">RECONNU</span></div><div class="org">GEIPAN — CNES</div><div class="yr">GEPAN 1977 → GEIPAN 2005</div><p>Premier organisme public au monde, modèle de pérennité et de transparence. ~1 000 sollicitations/an, classification A/B/C/D publiée sur geipan.fr.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇨🇱 Chili</span><span class="badge n1">RECONNU</span></div><div class="org">CEFAA / SEFAA — DGAC</div><div class="yr">depuis 1997</div><p>Avec la France, l'un des deux seuls bureaux gouvernementaux ouverts et publics. Vidéo marine 2014 classée « PAN » après 2 ans d'enquête.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇺🇾 Uruguay</span><span class="badge n1">RECONNU</span></div><div class="org">CRIDOVNI — FAU</div><div class="yr">depuis 1979</div><p>Premier organisme officiel d'Amérique latine. ~2 000 signalements, ~3 % « non conventionnels ». « Le point d'origine est inconnu. »</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇦🇷 Argentine</span><span class="badge n1">RECONNU</span></div><div class="org">CIAE (ex-CEFAE)</div><div class="yr">2011 → 2019</div><p>Centro de Identificación Aeroespacial. ~98 % identifiables, ~2 % non résolus — « mais ce n'est pas une garantie d'origine paranormale ».</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇬🇧 Royaume-Uni</span><span class="badge n1">RECONNU</span></div><div class="org">Project Condign — MoD/DIS</div><div class="yr">1997–2000, déclassifié 2006</div><p>L'existence des UAP est jugée « indiscutable » ; résidu attribué à des « plasmas atmosphériques » — théorie jugée orientée par sa conclusion.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇧🇪 Belgique</span><span class="badge n2">NUANCÉ</span></div><div class="org">Force aérienne belge</div><div class="yr">vague 1989–1990</div><p>Transparence militaire (gén. De Brouwer, F-16). Mais robustesse fortement nuancée : photo de Petit-Rechain avouée comme canular en 2011.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇨🇦 Canada</span><span class="badge n1">RECONNU</span></div><div class="org">Sky Canada Project — OCSA</div><div class="yr">juin 2025</div><p>Porte sur les <em>services de signalement</em>, pas sur la nature des UAP. S'inspire explicitement du modèle GEIPAN.</p></div>
+      <div class="card"><div class="flagrow"><span class="cn">🇧🇷 Brésil</span><span class="badge n1">RECONNU</span></div><div class="org">Operação Prato — FAB</div><div class="yr">1977–1978</div><p>Archives UAP largement déclassifiées (Archives nationales). Aucune enquête n'a abouti à une conclusion officielle d'origine extraterrestre.</p></div>
+    </div>
+    <p class="reveal" style="margin-top:18px;font-size:13px;color:var(--ink-dim)">Aucune organisation internationale (ONU, OTAN) n'a reconnu les UAP comme un phénomène extraterrestre. La coopération passe par des canaux bilatéraux ou les réseaux « Five Eyes ».</p>
+  </section>
+
+  <!-- DOSSIERS -->
+  <section id="dossiers">
+    <div class="eyebrow mono">CAS EMBLÉMATIQUES</div>
+    <h2 class="sec reveal">Dossiers de cas — établi vs contesté</h2>
+    <p class="reveal">La qualité évidentielle varie énormément d'un cas à l'autre. Chaque dossier est ici jugé sur sa convergence multi-capteurs et la solidité de ses traces — pas sur sa notoriété.</p>
+
+    <div style="margin-top:22px">
+      <div class="case n2 reveal">
+        <div class="ch"><span class="ct">USS Nimitz — « Tic Tac »</span><span class="badge n2">INEXPLIQUÉ</span></div>
+        <div class="meta">14 NOV. 2004 · LARGE DE SAN DIEGO · RADAR AEGIS + E-2C + FLIR + TÉMOINS</div>
+        <div class="two"><div><div class="h e">CE QUI EST ÉTABLI</div><p>Cas le mieux documenté du XXIᵉ siècle. Convergence multi-capteurs : radar de surface, radar aéroporté, FLIR, et deux pilotes qualifiés (Fravor, Dietrich). Objet réacquis à ~60 milles en moins d'une minute. Statut officiel : « non identifié ».</p></div><div><div class="h c">CE QUI EST CONTESTÉ</div><p>Les allégations de confiscation de données par des « hommes en noir » sont contestées par Fravor lui-même. Le statut « non identifié » ne préjuge d'aucune hypothèse sur la nature de l'objet.</p></div></div>
+      </div>
+
+      <div class="case n2 reveal">
+        <div class="ch"><span class="ct">Trans-en-Provence</span><span class="badge n2">INEXPLIQUÉ · CLASSÉ D</span></div>
+        <div class="meta">8 JANV. 1981 · VAR, FRANCE · TRACES MATÉRIELLES MESURABLES</div>
+        <div class="two"><div><div class="h e">CE QUI EST ÉTABLI</div><p>Enquête GEPAN (Note Technique n°16) + analyses INRA : compression mécanique du sol (~4–5 t), échauffement 300–600 °C, chute de 30–50 % de chlorophylle de la luzerne décroissant avec la distance. L'un des rares cas au monde avec traces mesurables.</p></div><div><div class="h c">CE QUI EST CONTESTÉ</div><p>L'Observatoire zététique (Maillot, Rossoni, Déguillaume) y voit des traces de ripage de pneus (travaux à proximité), relève qu'il a plu avant les prélèvements et que le passé du site n'a pas été étudié. Reste classé D faute de consensus — non parce qu'une origine exotique serait prouvée.</p></div></div>
+      </div>
+
+      <div class="case n2 reveal">
+        <div class="ch"><span class="ct">Vague belge</span><span class="badge n2">ROBUSTESSE NUANCÉE</span></div>
+        <div class="meta">29 NOV. 1989 – AVR. 1990 · BELGIQUE · F-16 + RADAR SOL</div>
+        <div class="two"><div><div class="h e">CE QUI EST ÉTABLI</div><p>Milliers de témoins (dont policiers, militaires). Nuit du 30-31 mars 1990 : deux F-16 décollés de Beauvechain, accrochages radar intermittents. Reconnaissance publique du gén. De Brouwer ; exclusion des furtifs américains.</p></div><div><div class="h c">CE QUI EST CONTESTÉ</div><p>Les militaires belges eux-mêmes ont montré que les trois accrochages radar confirmés portaient sur les F-16 <em>entre eux</em> ; les pilotes n'ont rien vu visuellement. La photo de Petit-Rechain a été <strong style="color:var(--ink)">avouée comme un canular</strong> (polystyrène) en 2011.</p></div></div>
+      </div>
+
+      <div class="case n2 reveal">
+        <div class="ch"><span class="ct">Vidéo de la marine chilienne</span><span class="badge n2">CLASSÉ PAN</span></div>
+        <div class="meta">11 NOV. 2014 (PUBLIÉE 2017) · CÔTE DE SANTIAGO · IR WESCAM MX-15</div>
+        <div class="two"><div><div class="h e">CE QUI EST ÉTABLI</div><p>~9 min filmées depuis un hélico Cougar ; objet absent du radar de bord. Classé officiellement « PAN » par le CEFAA après deux ans. Gén. Bermúdez : « Nous ne savons pas ce que c'était, mais nous savons ce que ce n'était pas. »</p></div><div><div class="h c">CE QUI EST CONTESTÉ</div><p>Analyse IPACO / GEIPAN (2015) : un avion moyen-courrier larguant de l'eau. Conclusion <em>rejetée</em> par le CEFAA (largage non autorisé, aucun trafic au radar). Divergence entre deux organismes officiels.</p></div></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- LOG -->
-  <div class="panel notch logpanel">
-    <div class="ph hud-font"><span>CONSOLE LOG</span><span class="id">STREAM · /var/omc/flight.log</span></div>
-    <div class="log" id="log"></div>
-  </div>
+  <!-- CLASSIFICATION -->
+  <section id="classification">
+    <div class="eyebrow mono">MÉTHODE GEIPAN</div>
+    <h2 class="sec reveal">La classification A / B / C / D</h2>
+    <p class="reveal">Affinée en 2008, fondée sur deux axes : l'<strong style="color:var(--ink)">étrangeté</strong> et la <strong style="color:var(--ink)">consistance</strong>. Principe explicite : « plus l'étrangeté est forte, plus la consistance doit être forte ».</p>
+    <div class="abcd reveal" style="margin-top:20px">
+      <div class="ab"><div class="L">A</div><div class="nm mono">IDENTIFIÉ</div><p>Phénomène parfaitement identifié.</p></div>
+      <div class="ab"><div class="L">B</div><div class="nm mono">PROBABLE</div><p>Phénomène probablement identifié (hypothèse très probable).</p></div>
+      <div class="ab"><div class="L">C</div><div class="nm mono">NON ANALYSABLE</div><p>Observation non analysable faute de données suffisantes.</p></div>
+      <div class="ab d"><div class="L">D</div><div class="nm mono">INEXPLIQUÉ</div><p>Inexpliqué <em>malgré</em> des données de qualité. D1 : étrange. D2 : très étrange (plusieurs témoins, enregistrements, traces).</p></div>
+    </div>
+    <p class="reveal" style="margin-top:18px;font-size:13px;color:var(--ink-dim)">Nuance exemplaire du GEIPAN sur l'hypothèse extraterrestre : « cette hypothèse ne peut être exclue, bien qu'en 40 ans d'investigations, aucune preuve n'ait été trouvée ». C'est un groupe d'<em>études</em>, non un organe de validation d'hypothèses exotiques.</p>
+  </section>
 
-  <footer class="hud-font">
-    <span>OMC · GROUND CONTROL // ALL TELEMETRY SIMULATED EXCEPT FEED</span>
-    <span id="fcount">FRAME 000000</span>
-  </footer>
+  <!-- CHRONOLOGIE -->
+  <section id="chronologie">
+    <div class="eyebrow mono">2017 → 2026</div>
+    <h2 class="sec reveal">Chronologie du tournant</h2>
+    <div class="tl reveal" style="margin-top:22px">
+      <div class="tle"><div class="dt">DÉC. 2017</div><div class="ti">Révélation de l'AATIP</div><p>Le <em>New York Times</em> révèle le programme du Pentagone (~22 M$, 2007-2012) et publie la vidéo « FLIR » de l'incident de 2004.</p></div>
+      <div class="tle"><div class="dt">AVR. 2020</div><div class="ti">Authentification des 3 vidéos Navy <span class="badge n1">N1</span></div><p>Le Pentagone reconnaît officiellement l'authenticité de FLIR1, GIMBAL et GO FAST. Les objets restent « non identifiés ».</p></div>
+      <div class="tle"><div class="dt">JUIN 2021</div><div class="ti">Rapport préliminaire de l'ODNI</div><p>144 signalements ; un seul identifié. Aucune origine extraterrestre mentionnée. Cadre : sécurité aérienne et menace d'adversaire.</p></div>
+      <div class="tle"><div class="dt">JUIL. 2022</div><div class="ti">Création de l'AARO</div><p>All-domain Anomaly Resolution Office, au sein du Bureau du Secrétaire à la Défense. 1 600+ signalements catalogués à terme.</p></div>
+      <div class="tle"><div class="dt">JUIL. 2023</div><div class="ti">Audience House Oversight — Grusch <span class="badge n3">N3</span></div><p>David Grusch allègue un programme secret de récupération d'épaves « non humaines ». Il reconnaît n'avoir jamais vu d'épave. Aucune preuve matérielle publique.</p></div>
+      <div class="tle"><div class="dt">SEPT. 2023</div><div class="ti">Panel indépendant de la NASA</div><p>« Aucune preuve » d'origine extraterrestre ; l'extraterrestre doit être « l'hypothèse de dernier recours ». Le problème central est la qualité des données.</p></div>
+      <div class="tle"><div class="dt">MARS 2024</div><div class="ti">Rapport historique de l'AARO (Vol. I)</div><p>« No empirical evidence » de rétro-ingénierie ET. Les programmes cités étaient d'authentiques programmes classifiés « associés à tort » à une activité extraterrestre.</p></div>
+      <div class="tle"><div class="dt">NOV. 2024</div><div class="ti">« Immaculate Constellation » <span class="badge n3">N3</span></div><p>Prétendu programme secret, fondé sur un rapport de lanceur d'alerte anonyme et non authentifié. Rejeté par l'AARO comme « reporting circulaire ».</p></div>
+      <div class="tle"><div class="dt">2024 → 2026</div><div class="ti">Législation & transparence</div><p>NDAA FY2024/FY2026 : obligations de signalement et de déclassification. FAA (oct. 2025) : « UAP » + signalement obligatoire des contrôleurs. Fév. 2026 : promesse de déclassification — « espoir et prudence ».</p></div>
+    </div>
+  </section>
+
+  <!-- ALLÉGATIONS -->
+  <section id="allegations">
+    <div class="eyebrow mono" style="color:var(--crit)"><span style="background:var(--crit);box-shadow:0 0 8px var(--crit)"></span>NIVEAU 3 — NON VÉRIFIÉ</div>
+    <h2 class="sec reveal">Allégations non corroborées</h2>
+    <p class="reveal">Ces récits relèvent strictement du niveau 3. Ils sont rapportés <strong style="color:var(--ink)">comme allégations</strong>, jamais comme faits établis — aucune preuve matérielle publique ne les étaye à ce jour.</p>
+    <div style="margin-top:20px">
+      <div class="case reveal" style="border-left-color:var(--crit)">
+        <div class="ch"><span class="ct">David Grusch (2023)</span><span class="badge n3">NON VÉRIFIÉ</span></div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-mid)">Témoignage sous serment sur un programme pluri-décennal de récupération et de rétro-ingénierie d'épaves « non humaines ». Grusch reconnaît n'avoir jamais vu d'épave ; son récit repose sur plus de 40 témoins indirects. Entièrement non corroboré par des preuves matérielles publiques. Seth Shostak : « argument d'autorité » sans preuve physique.</p>
+      </div>
+      <div class="case reveal" style="border-left-color:var(--crit)">
+        <div class="ch"><span class="ct">« Immaculate Constellation » (2024)</span><span class="badge n3">NON VÉRIFIÉ</span></div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-mid)">Prétendu « unacknowledged special access program », incluant un F-22 « encadré » par des orbes. Repose sur un rapport de lanceur d'alerte anonyme et non authentifié. Rejeté par l'AARO.</p>
+      </div>
+      <div class="case reveal" style="border-left-color:var(--crit)">
+        <div class="ch"><span class="ct">« Kona Blue »</span><span class="badge n3">PROPOSITION REJETÉE</span></div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-mid)">Programme proposé sous le DHS, ayant existé au stade de la proposition mais rejeté « sans fondement » et jamais activé. Souvent cité à tort comme preuve d'un programme actif.</p>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:16px;font-size:13px;color:var(--ink-dim)">À noter : le rapport COMETA (1999) avance, lui, l'hypothèse extraterrestre pour les cas les plus difficiles — mais c'est l'opinion d'une <em>association privée</em>, jamais une position du gouvernement français.</p>
+  </section>
+
+  <!-- MISES EN GARDE -->
+  <section id="garde">
+    <div class="eyebrow mono" style="color:var(--warn)"><span style="background:var(--warn);box-shadow:0 0 8px var(--warn)"></span>CAVEATS</div>
+    <h2 class="sec reveal">Mises en garde</h2>
+    <div class="reveal" style="margin-top:18px">
+      <div class="cav"><div class="k">01 · CŒUR</div><p>« Inexpliqué » ≠ « extraterrestre ». Toutes les institutions reconnaissent un résidu de cas inexpliqués ; aucune n'a conclu à une origine extraterrestre. Présenter un cas inexpliqué comme une preuve d'extraterrestres est une distorsion que ce dossier rejette.</p></div>
+      <div class="cav"><div class="k">02 · CHIFFRES</div><p>Le taux uruguayen officiel est 3 % (source FAU), pas 2 %. En Argentine, l'acronyme actuel est CIAE — Centro de Identificación Aeroespacial (et non « Comisión de Investigación… »). Les agrégateurs secondaires introduisent des erreurs.</p></div>
+      <div class="cav"><div class="k">03 · PROVENANCE</div><p>L'authentification des vidéos (Pentagone 2020, Chili 2017) porte sur la réalité des enregistrements, pas sur la nature des objets, qui reste « non identifiée ». Ne pas surinterpréter.</p></div>
+      <div class="cav"><div class="k">04 · MÉTHODE</div><p>Le rapport historique de l'AARO (2024) comporte des erreurs factuelles documentées et a été critiqué pour partialité ; les conclusions sur Trans-en-Provence et la vague belge sont contestées. Le COMETA n'est pas un document officiel de l'État français.</p></div>
+      <div class="cav"><div class="k">05 · MOUVANT</div><p>Données en mouvement (juin 2026) : Volume II de l'AARO, rapport annuel 2025, directive de déclassification 2026, NDAA FY2026 étaient en cours ou non publiés à la date de rédaction. Recouper avec les textes officiels lorsqu'ils paraîtront.</p></div>
+    </div>
+  </section>
 </div>
 
+<footer>
+  <div class="wrap">
+    <p class="fnote">Le seuil qui changerait tout serait la production d'une <strong style="color:var(--ink)">preuve matérielle publique, vérifiable et évaluée par les pairs</strong> — qui, à la date de juin 2026, n'existe pas. Sources primaires recommandées : rapport ODNI 2021, rapports annuels AARO, rapport NASA 2023, statistiques GEIPAN (geipan.fr), rapport Sky Canada 2025.</p>
+    <div class="meta">ARCHIVE PAN·UAP — DOSSIER DE RECHERCHE · TÉLÉMÉTRIE LATÉRALE SIMULÉE · CONTENU FACTUEL ARRÊTÉ À JUIN 2026 · <span id="fcount">FRAME 000000</span></div>
+  </div>
+</footer>
+
 <script>
-/* ============ helpers ============ */
-const $ = s => document.querySelector(s);
-const pad = (n,l=2)=>String(Math.floor(n)).padStart(l,'0');
-const fmt = s => { s=Math.max(0,s||0); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=Math.floor(s%60);
-  return h? `${h}:${pad(m)}:${pad(x)}` : `${pad(m)}:${pad(x)}`; };
-const rnd = (a,b)=>a+Math.random()*(b-a);
-const T0 = Date.now();
-const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const $=s=>document.querySelector(s);
+const pad=(n,l=2)=>String(Math.floor(n)).padStart(l,'0');
+const fmt=s=>{s=Math.max(0,s||0);const m=Math.floor(s/60),x=Math.floor(s%60);return pad(m)+':'+pad(x);};
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let ACC=[70,229,255];const accent=a=>`rgba(${ACC[0]},${ACC[1]},${ACC[2]},${a})`;
 
-/* ============ console log ============ */
-const logEl = $('#log');
-function log(msg, cls='info'){
-  const t = new Date();
-  const ts = `${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}:${pad(t.getUTCSeconds())}`;
-  const div = document.createElement('div');
-  div.className='ln';
-  div.innerHTML = `<span class="ts">[${ts}]</span> <span class="${cls}">${msg}</span>`;
-  logEl.appendChild(div);
-  while(logEl.children.length>120) logEl.removeChild(logEl.firstChild);
-  logEl.scrollTop = logEl.scrollHeight;
-}
+/* ---- audio (opt-in, subtle) ---- */
+let AC=null,master=null,soundOn=false;
+function initAudio(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}
+  master=AC.createGain();master.gain.value=0.7;master.connect(AC.destination);
+  const amb=AC.createGain();amb.gain.value=0.04;const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=320;amb.connect(lp).connect(master);
+  [55,55.5,82.4].forEach((f,i)=>{const o=AC.createOscillator();o.type=i<2?'sawtooth':'sine';o.frequency.value=f;o.connect(amb);o.start();});}
+function beep(f=720,d=0.05,v=0.08){if(!AC||!soundOn)return;const o=AC.createOscillator(),g=AC.createGain();o.type='square';o.frequency.value=f;
+  g.gain.setValueAtTime(0,AC.currentTime);g.gain.linearRampToValueAtTime(v,AC.currentTime+0.004);g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+d);
+  o.connect(g).connect(master);o.start();o.stop(AC.currentTime+d+0.02);}
+$('#tgSound').onclick=function(){soundOn=!soundOn;if(soundOn){initAudio();if(AC&&AC.state==='suspended')AC.resume();}
+  this.textContent='SON '+(soundOn?'◼':'◻');this.classList.toggle('off',!soundOn);beep(880,0.05,0.08);};
 
-/* ============ subsystems ============ */
-const subsystems = [
-  {name:'UPLINK ARRAY', lvl:96, cls:'go'},
-  {name:'BUFFER MATRIX', lvl:0,  cls:''},
-  {name:'POWER CORE',    lvl:88, cls:'go'},
-  {name:'NAV GUIDANCE',  lvl:74, cls:''},
-  {name:'THERMAL REG',   lvl:62, cls:'warn'},
-  {name:'COMMS RELAY',   lvl:91, cls:'go'},
+/* ---- theme ---- */
+const themes=['cyan','amber','green'],accMap={cyan:[70,229,255],amber:[255,178,61],green:[124,255,160]};let ti=0;
+$('#tgTheme').onclick=()=>{ti=(ti+1)%themes.length;const n=themes[ti];document.documentElement.setAttribute('data-theme',n==='cyan'?'':n);
+  ACC=accMap[n];document.documentElement.style.setProperty('--acc',ACC.join(','));beep(560,0.04,0.07);};
+
+/* ---- clock ---- */
+function clock(){const u=new Date();$('#clk').textContent=`UTC ${pad(u.getUTCHours())}:${pad(u.getUTCMinutes())}:${pad(u.getUTCSeconds())}`;}
+clock();setInterval(clock,1000);
+
+/* ---- archive / playlist ---- */
+const archive=[
+ {label:"3 vidéos US Navy — déclassifiées par le Pentagone (2020)",id:"rO_M0hLlJ-Q",badge:"n1",badgeTxt:"NIVEAU 1 · AUTHENTIFIÉ",
+  date:"2004 (Nimitz) & 2015 (Roosevelt)",lieu:"Large de San Diego / côte est des États-Unis",capteur:"FLIR & ATFLIR — nacelles de F/A-18",
+  statut:"Authenticité confirmée par la Navy le 27 avril 2020. Les objets restent classés « non identifiés ». L'AARO les liste comme cas non résolus.",
+  scep:"Mick West propose parallaxe, artefacts « gimbal » de la nacelle, aéronefs lointains. Le Pentagone n'a ni validé ni invalidé ces explications."},
+ {label:"Marine chilienne — vidéo infrarouge (CEFAA, 2014 / 2017)",id:"O-kFPH8YGxo",badge:"n2",badgeTxt:"NIVEAU 2 · CLASSÉ PAN",
+  date:"11 nov. 2014 — publiée en janvier 2017",lieu:"Côte ouest de Santiago, Chili",capteur:"WESCAM MX-15 IR — hélicoptère Cougar AS-532",
+  statut:"Classée officiellement « PAN » après deux ans d'enquête. Objet absent du radar de bord. « Nous savons ce que ce n'était pas. » (gén. Bermúdez)",
+  scep:"IPACO / GEIPAN (2015) : un avion moyen-courrier larguant de l'eau. Conclusion rejetée par le CEFAA — largage non autorisé, aucun trafic au radar."},
+ {label:"Contre-analyse — l'hypothèse prosaïque (Mick West)",id:"2bFfuIidCK0",badge:"an",badgeTxt:"ANALYSE · SCEPTIQUE",
+  date:"analyse publiée en 2017",lieu:"recoupement de trajectoire",capteur:"vols commerciaux + traînées de condensation",
+  statut:"Démonstration que la séquence chilienne est compatible avec un avion de ligne (vol IB6830) et sa traînée à contre-jour thermique.",
+  scep:"Illustration directe du principe du dossier : « inexpliqué » par une institution n'équivaut pas à « exotique ». Le CEFAA maintient néanmoins sa classification."},
 ];
-const sysEl = $('#sys');
-subsystems.forEach((s,i)=>{
-  const row=document.createElement('div'); row.className='sysrow';
-  const stClass = s.cls==='warn'?'warn':s.cls==='crit'?'crit':'';
-  const stTxt = s.cls==='warn'?'CAUTION':s.cls==='crit'?'FAULT':'ONLINE';
-  row.innerHTML=`<div class="lab"><span class="dot ${stClass}"></span>${s.name}</div>
-    <div class="st ${stClass}">${stTxt}</div>
-    <div class="bar ${s.cls}"><i style="width:${s.lvl}%"></i></div>`;
-  sysEl.appendChild(row); s.el=row.querySelector('i'); s.st=row.querySelector('.st');
-});
-
-/* ============ YouTube ============ */
-let player=null, ready=false, pending=null, playing=false, muted=false;
-function extractId(v){
-  v=(v||'').trim();
-  if(/^[\w-]{11}$/.test(v)) return v;
-  const m = v.match(/(?:v=|\/embed\/|youtu\.be\/|\/shorts\/|\/live\/)([\w-]{11})/);
-  return m? m[1] : null;
+let current=-1;
+const plEl=$('#pl');
+function renderPL(){plEl.innerHTML='';archive.forEach((a,i)=>{const r=document.createElement('div');r.className='pli'+(i===current?' active':'');r.tabIndex=0;
+  r.innerHTML=`<span class="n">0${i+1}</span><span class="t"></span>`;r.querySelector('.t').textContent=a.label;
+  r.addEventListener('click',()=>playIndex(i));r.addEventListener('keydown',e=>{if(e.key==='Enter')playIndex(i);});plEl.appendChild(r);});}
+function renderFiche(a){
+  $('#ficheBadge').innerHTML=`<span class="badge ${a.badge}">${a.badgeTxt}</span>`;
+  $('#fiche').innerHTML=`<dl>
+    <dt>Date</dt><dd>${a.date}</dd>
+    <dt>Lieu</dt><dd>${a.lieu}</dd>
+    <dt>Capteur</dt><dd>${a.capteur}</dd></dl>
+    <div class="blk stat"><div class="h">STATUT OFFICIEL</div><p>${a.statut}</p></div>
+    <div class="blk scep"><div class="h">CONTRE-ANALYSE</div><p>${a.scep}</p></div>`;
 }
-window.onYouTubeIframeAPIReady = function(){
-  player = new YT.Player('yt-mount',{
-    width:'100%',height:'100%',
-    playerVars:{controls:0,modestbranding:1,rel:0,playsinline:1,iv_load_policy:3,disablekb:1},
-    events:{
-      onReady:()=>{ ready=true; log('IFRAME API · player initialised','ok');
-        try{player.setVolume(+$('#vol').value);}catch(e){}
-        if(pending){ loadVideo(pending); pending=null; } },
-      onStateChange:onState,
-      onError:e=>{ log('FEED ERROR · code '+e.data+' — source unreachable','crit');
-        setStatus('crit','SIGNAL LOSS'); showStandby(true,'SIGNAL LOST'); }
-    }
-  });
+renderFiche({badge:'an',badgeTxt:'EN ATTENTE',date:'—',lieu:'—',capteur:'—',statut:'Sélectionnez une séquence dans la liste pour afficher sa fiche.',scep:'Chaque cas est présenté avec sa contre-analyse sceptique.'});
+
+/* ---- YouTube ---- */
+let player=null,ready=false,pending=null,playing=false,muted=false;
+function extractId(v){v=(v||'').trim();if(/^[\w-]{11}$/.test(v))return v;const m=v.match(/(?:v=|\/embed\/|youtu\.be\/|\/shorts\/|\/live\/)([\w-]{11})/);return m?m[1]:null;}
+window.onYouTubeIframeAPIReady=function(){player=new YT.Player('yt',{width:'100%',height:'100%',
+  playerVars:{controls:1,modestbranding:1,rel:0,playsinline:1},
+  events:{onReady:()=>{ready=true;try{player.setVolume(+$('#vol').value);}catch(e){}if(pending!=null){load(pending);pending=null;}},
+   onStateChange:e=>{if(e.data===YT.PlayerState.PLAYING){playing=true;$('#play').innerHTML='❚❚ PAUSE';}
+     else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED){playing=false;$('#play').innerHTML='▶ LECTURE';}},
+   onError:()=>{$('#standby').style.display='grid';$('#standby h4').textContent='SIGNAL PERDU';$('#standby p').textContent='SÉQUENCE INDISPONIBLE — ESSAYEZ-EN UNE AUTRE';}}});
 };
-(function(){ const t=document.createElement('script'); t.src='https://www.youtube.com/iframe_api';
-  t.onerror=()=>log('Failed to reach youtube.com/iframe_api · check network','crit');
-  document.head.appendChild(t); })();
+(function(){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);})();
+function playIndex(i){current=i;renderPL();const a=archive[i];renderFiche(a);$('#vplabel').textContent='SÉQ. 0'+(i+1)+' · '+a.label.toUpperCase().slice(0,28);
+  crt();beep(660,0.05,0.08);if(!ready){pending=i;$('#standby').style.display='grid';$('#standby h4').textContent='CHARGEMENT…';return;}load(i);}
+function load(i){const a=archive[i];$('#standby').style.display='none';player.loadVideoById(a.id);}
+function crt(){const c=$('#crton');c.classList.remove('go');void c.offsetWidth;c.classList.add('go');}
+$('#play').onclick=()=>{if(!ready){if(archive.length)playIndex(current<0?0:current);return;}playing?player.pauseVideo():player.playVideo();beep(820,0.05,0.07);};
+$('#mute').onclick=()=>{if(!ready)return;muted=!muted;muted?player.mute():player.unMute();$('#mute').textContent=muted?'🔇 COUPÉ':'🔊 SON';};
+$('#vol').oninput=e=>{if(ready){player.setVolume(+e.target.value);if(muted&&+e.target.value>0){muted=false;player.unMute();$('#mute').textContent='🔊 SON';}}};
+$('#full').onclick=()=>{const el=$('.viewport');document.fullscreenElement?document.exitFullscreen():el.requestFullscreen?.();};
+$('#addBtn').onclick=()=>{const id=extractId($('#addUrl').value);if(!id){$('#addUrl').focus();beep(200,0.12,0.1);return;}
+  archive.push({label:'Séquence opérateur — '+id,id,badge:'an',badgeTxt:'AJOUT OPÉRATEUR',date:'—',lieu:'—',capteur:'fournie par l\'utilisateur',
+   statut:'Séquence ajoutée par l\'opérateur. Statut et provenance non vérifiés par cette archive.',scep:'À recouper avec des sources primaires.'});
+  $('#addUrl').value='';renderPL();beep(990,0.07,0.08);};
+$('#addUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('#addBtn').click();});
+renderPL();
 
-function loadVideo(id){
-  if(!ready){ pending=id; log('Queuing target '+id+' · awaiting API','warn'); return; }
-  log('UPLINK ESTABLISHED · target ['+id+']','ok');
-  showStandby(false);
-  setStatus('go','TRACKING');
-  $('#feedtag').textContent='FEED // CH-07 · '+id;
-  player.loadVideoById(id);
-}
-function onState(e){
-  const s=e.data;
-  if(s===YT.PlayerState.PLAYING){ playing=true; $('#play').innerHTML='&#10073;&#10073; HOLD'; log('PLAYBACK ENGAGED · feed locked','ok'); setStatus('go','TRACKING'); }
-  else if(s===YT.PlayerState.PAUSED){ playing=false; $('#play').innerHTML='&#9654; ENGAGE'; log('PLAYBACK HOLD','warn'); setStatus('warn','HOLD'); }
-  else if(s===YT.PlayerState.BUFFERING){ log('BUFFER MATRIX · re-syncing packets…','info'); setStatus('warn','BUFFERING'); }
-  else if(s===YT.PlayerState.ENDED){ playing=false; $('#play').innerHTML='&#9654; ENGAGE'; log('FEED TERMINATED · end of transmission','info'); setStatus('go','STANDBY'); }
-}
+/* ---- globe (ambient) ---- */
+const gc=$('#globe'),gx=gc.getContext('2d');let grot=0,sat=0;const incl=35*Math.PI/180;
+function globe(){const w=gc.clientWidth;if(!w){requestAnimationFrame(globe);return;}const dpr=Math.min(devicePixelRatio||1,2);
+  if(gc.width!==w*dpr){gc.width=w*dpr;gc.height=w*dpr;}gx.setTransform(dpr,0,0,dpr,0,0);
+  const cx=w/2,cy=w/2,R=w*0.38;gx.clearRect(0,0,w,w);if(!reduce){grot+=0.005;sat+=0.018;}
+  const rg=gx.createRadialGradient(cx,cy,R*0.2,cx,cy,R*1.3);rg.addColorStop(0,accent(0.08));rg.addColorStop(1,accent(0));gx.fillStyle=rg;gx.beginPath();gx.arc(cx,cy,R*1.3,0,7);gx.fill();
+  gx.strokeStyle=accent(0.45);gx.lineWidth=1;gx.beginPath();gx.arc(cx,cy,R,0,7);gx.stroke();
+  const P=(la,lo)=>{const x=Math.cos(la)*Math.sin(lo),y=Math.sin(la),z=Math.cos(la)*Math.cos(lo);return{x:cx+x*R,y:cy-y*R,z};};
+  for(let la=-60;la<=60;la+=30){const lat=la*Math.PI/180;gx.beginPath();let st=false;for(let lo=0;lo<=360;lo+=7){const p=P(lat,lo*Math.PI/180+grot);if(p.z<-0.02){st=false;continue;}st?gx.lineTo(p.x,p.y):gx.moveTo(p.x,p.y);st=true;}gx.strokeStyle=accent(0.22);gx.stroke();}
+  for(let lo=0;lo<360;lo+=30){gx.beginPath();let st=false;for(let la=-90;la<=90;la+=7){const p=P(la*Math.PI/180,lo*Math.PI/180+grot);if(p.z<-0.02){st=false;continue;}st?gx.lineTo(p.x,p.y):gx.moveTo(p.x,p.y);st=true;}gx.strokeStyle=accent(0.22);gx.stroke();}
+  const x=Math.cos(sat),y=Math.sin(sat)*Math.cos(incl),z=Math.sin(sat)*Math.sin(incl);const sx=cx+x*R*1.18,sy=cy-y*R*1.18;
+  gx.fillStyle=z>=0?accent(1):'rgba(110,139,176,.6)';gx.beginPath();gx.arc(sx,sy,3,0,7);gx.fill();
+  $('#fcount').textContent='FRAME '+pad((sat*40)%999999,6);requestAnimationFrame(globe);}
+requestAnimationFrame(globe);
 
-/* ============ controls ============ */
-$('#go').onclick = ()=>{ const id=extractId($('#url').value);
-  if(!id){ log('INVALID DESIGNATION · could not parse target','crit'); $('#url').focus(); return; }
-  loadVideo(id); };
-$('#url').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#go').click(); });
-$('#play').onclick = ()=>{ if(!ready) return; try{ playing? player.pauseVideo():player.playVideo(); }catch(e){} };
-$('#rew').onclick  = ()=>{ if(ready){ player.seekTo(Math.max(0,player.getCurrentTime()-10),true); log('TRAJECTORY · rewind -10s','info'); } };
-$('#fwd').onclick  = ()=>{ if(ready){ player.seekTo(player.getCurrentTime()+10,true); log('TRAJECTORY · advance +10s','info'); } };
-$('#mute').onclick = ()=>{ if(!ready) return; muted=!muted; muted?player.mute():player.unMute();
-  $('#mute').innerHTML = muted? '&#128263; UNMUTE':'&#128266; MUTE';
-  log(muted?'AUDIO RELAY · muted':'AUDIO RELAY · restored', muted?'warn':'ok'); };
-$('#vol').oninput = e=>{ if(ready){ player.setVolume(+e.target.value);
-  if(muted && +e.target.value>0){ muted=false; player.unMute(); $('#mute').innerHTML='&#128266; MUTE'; } } };
-$('#full').onclick = ()=>{ const el=$('.viewport');
-  if(!document.fullscreenElement){ el.requestFullscreen?.(); log('VIEWPORT · expand to fullscreen','info'); }
-  else document.exitFullscreen?.(); };
-$('#track').onclick = e=>{ if(!ready||!player.getDuration) return;
-  const r=e.currentTarget.getBoundingClientRect(); const p=(e.clientX-r.left)/r.width;
-  const d=player.getDuration(); player.seekTo(p*d,true);
-  log('TRAJECTORY · seek to '+fmt(p*d),'info'); };
+/* ---- reveal + chart on scroll ---- */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+  if(e.target.id==='chart'||e.target.querySelector?.('#chart')){fillChart();}}});},{threshold:0.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+let charted=false;
+function fillChart(){if(charted)return;charted=true;document.querySelectorAll('#chart i').forEach(i=>{const v=parseFloat(i.dataset.v);i.style.width=Math.min(100,v/12*100)+'%';});}
+const chartObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){fillChart();chartObs.disconnect();}});},{threshold:0.3});
+chartObs.observe($('#chart'));
 
-/* ============ status ============ */
-function setStatus(kind,txt){
-  const dot=$('#statdot'); dot.className='dot'+(kind==='go'?'':' '+kind);
-  $('#stattxt').textContent=txt;
-}
-function showStandby(on,label){ const s=$('#standby'); s.style.display=on?'grid':'none';
-  if(on&&label) s.querySelector('h2').textContent=label;
-  if(!on) $('#feedtag').textContent='FEED // CH-07'; }
-
-/* ============ radar ============ */
-const rc=$('#radar'), ctx=rc.getContext('2d');
-let blips=[]; for(let i=0;i<6;i++) blips.push({a:rnd(0,Math.PI*2),r:rnd(.25,.92),life:rnd(0,1)});
-let sweepA=0;
-function drawRadar(){
-  const dpr=Math.min(devicePixelRatio||1,2), w=rc.clientWidth; rc.width=rc.height=w*dpr;
-  const c=w/2*dpr, R=w/2*dpr-2; ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,w,w); const cc=w/2, RR=w/2-1;
-  ctx.strokeStyle='rgba(31,74,120,.55)'; ctx.lineWidth=1;
-  [1,.66,.33].forEach(f=>{ctx.beginPath();ctx.arc(cc,cc,RR*f,0,7);ctx.stroke();});
-  ctx.beginPath();ctx.moveTo(cc,2);ctx.lineTo(cc,w-2);ctx.moveTo(2,cc);ctx.lineTo(w-2,cc);ctx.stroke();
-  if(!reduce){ sweepA+=0.025;
-    const g=ctx.createConicGradient? null:null;
-    ctx.save(); ctx.translate(cc,cc); ctx.rotate(sweepA);
-    const grad=ctx.createLinearGradient(0,0,RR,0);
-    grad.addColorStop(0,'rgba(70,229,255,.35)'); grad.addColorStop(1,'rgba(70,229,255,0)');
-    ctx.fillStyle=grad; ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,RR,-0.5,0); ctx.closePath(); ctx.fill();
-    ctx.strokeStyle='rgba(70,229,255,.7)'; ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(RR,0); ctx.stroke();
-    ctx.restore();
-  }
-  blips.forEach(b=>{ b.life-= .006; if(b.life<=0){ b.a=rnd(0,Math.PI*2); b.r=rnd(.2,.95); b.life=1; }
-    const x=cc+Math.cos(b.a)*RR*b.r, y=cc+Math.sin(b.a)*RR*b.r;
-    ctx.fillStyle=`rgba(92,255,168,${b.life*.9})`; ctx.beginPath(); ctx.arc(x,y,2.4,0,7); ctx.fill();
-  });
-}
-
-/* ============ EQ bars ============ */
-const eqEl=$('#eq'); const EQN=22; const bars=[];
-for(let i=0;i<EQN;i++){ const b=document.createElement('i'); eqEl.appendChild(b); bars.push(b); }
-
-/* ============ utc + mission clock ============ */
-function clocks(){
-  const u=new Date();
-  $('#utc').textContent=`${pad(u.getUTCHours())}:${pad(u.getUTCMinutes())}:${pad(u.getUTCSeconds())}`;
-  const e=(Date.now()-T0)/1000;
-  $('#met').textContent=`T+ ${pad(e/3600)}:${pad(e%3600/60)}:${pad(e%60)}`;
-}
-
-/* ============ main telemetry loop ============ */
-let frame=0, lat=408, vel=7.66;
-function loop(){
-  frame++;
-  // playback-driven readouts
-  let cur=0,dur=0,buf=0;
-  if(ready){ try{ cur=player.getCurrentTime?.()||0; dur=player.getDuration?.()||0;
-    buf=(player.getVideoLoadedFraction?.()||0)*100; }catch(e){} }
-  if(dur>0){
-    const p=Math.min(100,cur/dur*100);
-    $('#prog').style.width=p+'%'; $('#head').style.left=p+'%';
-    $('#buf').style.width=buf+'%';
-    $('#tcur').textContent=fmt(cur); $('#tdur').textContent=fmt(dur);
-  }
-  // telemetry — partly real, partly mission flavour
-  const active=playing;
-  const sig = active? rnd(94,99): rnd(70,84);
-  $('#t_sig').innerHTML=Math.round(sig)+'<small>%</small>';
-  $('#t_sig').className='v '+(sig>90?'go':sig>75?'':'warn');
-  $('#t_bit').innerHTML=(active?rnd(7.4,9.8):rnd(0,0.4)).toFixed(1)+'<small> Mb/s</small>';
-  $('#t_buf').innerHTML=Math.round(buf)+'<small>%</small>';
-  $('#t_lat').innerHTML=pad(active?rnd(28,55):rnd(60,120),3)+'<small> ms</small>';
-  // drifting orbit numbers
-  lat += Math.sin(frame/120)*0.04; vel += Math.sin(frame/90)*0.0008;
-  $('#t_alt').innerHTML=lat.toFixed(0)+'<small> km</small>';
-  $('#t_vel').innerHTML=vel.toFixed(2)+'<small> km/s</small>';
-  // moving ground coords
-  const la=(Math.sin(frame/200)*51).toFixed(4), lo=((frame/3)%360-180).toFixed(4);
-  $('#vpcoords').textContent=`LAT ${la} · LON ${lo}`;
-  // core load + strip
-  $('#load').textContent=pad(active?rnd(58,86):rnd(8,22))+'%';
-  $('#feedmeta').innerHTML=`CODEC H.264<br>GAIN ${active? '+':''}${($('#vol').value/10-10).toFixed(1)} dB`;
-  // subsystem wiggle
-  subsystems.forEach((s,i)=>{ if(i===1){ s.el.style.width=Math.round(buf)+'%'; }
-    else { const t=s.lvl+Math.sin(frame/40+i)* (s.cls==='warn'?4:2.2); s.el.style.width=Math.max(3,Math.min(100,t))+'%'; }});
-  // EQ
-  bars.forEach((b,i)=>{ const h = active? rnd(18,100)*(0.5+0.5*Math.abs(Math.sin(frame/8+i))) : rnd(6,16);
-    b.style.height=Math.min(100,h)+'%'; });
-  // radar
-  drawRadar();
-  $('#fcount').textContent='FRAME '+pad(frame,6);
-  requestAnimationFrame(loop);
-}
-
-/* ============ boot sequence ============ */
-const bootLines=[
-  ['> POST · core memory check ........... OK','ok'],
-  ['> mounting /dev/uplink0 ............... OK','ok'],
-  ['> calibrating nav guidance ........... OK','ok'],
-  ['> thermal regulator .................. CAUTION 62%','warn'],
-  ['> handshake youtube.relay ............ OK','ok'],
-  ['> decryption keys loaded ............. OK','ok'],
-  ['> OMC TERMINAL READY · awaiting operator','info'],
-];
-const blEl=$('#bootlines'); let bi=0;
-function bootStep(){
-  if(bi>=bootLines.length) return;
-  const [t,c]=bootLines[bi++];
-  const d=document.createElement('div'); d.className=c; d.textContent=t; blEl.appendChild(d);
-  setTimeout(bootStep, reduce?80:rnd(220,460));
-}
-function dismissBoot(){
-  const b=$('#boot'); if(b.classList.contains('gone'))return;
-  b.classList.add('gone'); setTimeout(()=>b.remove(),650);
-  log('OPERATOR ON CONSOLE · welcome to ORBITAL MEDIA COMMAND','ok');
-  log('Paste a YouTube URL into TARGET DESIGNATION, then INITIATE UPLINK.','info');
-  setStatus('go','STANDBY');
-}
-$('#boot').addEventListener('click',dismissBoot);
-
-/* ============ ignition ============ */
-bootStep();
-clocks(); setInterval(clocks,1000);
-log('Cold boot · OMC kernel loading…','info');
-setStatus('warn','BOOTING');
-requestAnimationFrame(loop);
-// auto-dismiss boot after sequence
-setTimeout(dismissBoot, reduce?900:3400);
+/* ---- boot ---- */
+const lines=[["> accès archives nationales ......... AUTORISÉ","ok"],["> déchiffrement dossiers PAN/UAP .... OK","ok"],
+ ["> index 2017–2026 monté ............. OK","ok"],["> niveau de classification .......... PUBLIC","info"],
+ ["> rappel : inexpliqué ≠ extraterrestre","warn"],["> terminal prêt — opérateur autorisé","info"]];
+const blEl=$('#bootlines');let bi=0;
+function step(){if(bi>=lines.length)return;const[t,c]=lines[bi++];const d=document.createElement('div');d.className=c;d.textContent=t;blEl.appendChild(d);setTimeout(step,reduce?60:280+Math.random()*240);}
+let booted=false;function dismiss(){if(booted)return;booted=true;const b=$('#boot');b.classList.add('gone');setTimeout(()=>b.remove(),600);}
+$('#boot').addEventListener('click',dismiss);
+step();setTimeout(dismiss,reduce?700:3200);
 </script>
