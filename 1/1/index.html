@@ -12,15 +12,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --void:#040711;--panel:#0a1322;--panel-2:#0c1830;
-    --line:#163252;--line-bright:#1f4a78;
-    --acc:70,229,255;
-    --cyan:rgb(var(--acc));--cyan-dim:rgba(var(--acc),.62);
-    --go:#5cffa8;--warn:#ffb23d;--crit:#ff4b33;
-    --ink:#cfe6ff;--ink-dim:#6e8bb0;--ink-faint:#3c577a;
-    --glow:0 0 12px rgba(var(--acc),.45);
+  :root {
+    --void: #020308; /* Fond de l'espace plus profond */
+    --panel: rgba(10, 19, 34, 0.55); /* Transparence pour l'effet verre */
+    --panel-2: rgba(12, 24, 48, 0.7);
+    --line: #1b3d63;
+    --line-bright: #306ba8;
+    --acc: 0, 235, 255; /* Cyan néon plus éclatant */
+    --cyan: rgb(var(--acc));
+    --cyan-dim: rgba(var(--acc), 0.5);
+    --go: #26ff92; /* Vert plus vif */
+    --warn: #ffbe3d;
+    --crit: #ff2a2a;
+    --ink: #e6f4ff;
+    --ink-dim: #7da0c7;
+    --ink-faint: #436287;
+    --glow: 0 0 18px rgba(var(--acc), 0.65), 0 0 4px rgba(var(--acc), 0.9);
   }
+
+  /* 1. Effet Verre Trempé (Glassmorphism) sur les panneaux */
+  .strip, .panel, .viewport, .console, .cmdline {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glow), inset 0 0 40px rgba(var(--acc), 0.05);
+    border: 1px solid rgba(var(--acc), 0.3);
+  }
+
+  /* 2. Animations et effets néon au survol des boutons */
+  .btn, .tg, .hbtn, .pa-btn, .plitem {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  .btn:hover, .tg:hover, .pa-btn:hover {
+    box-shadow: 0 0 15px rgba(var(--acc), 0.4), inset 0 0 10px rgba(var(--acc), 0.2);
+    text-shadow: var(--glow);
+    transform: translateY(-1px); /* Soulèvement léger au survol */
+    border-color: var(--cyan);
+  }
+
+  /* 3. Ligne de lecture de la vidéo pulsante */
+  .track .prog {
+    box-shadow: 0 0 15px var(--cyan);
+    animation: progGlow 2s infinite alternate;
+  }
+  @keyframes progGlow {
+    from { box-shadow: 0 0 10px var(--cyan-dim); }
+    to { box-shadow: 0 0 25px var(--cyan); }
+  }
+
+  /* 4. Scanner radar en arrière-plan plus large et distinct */
+  .bg .scan {
+    background: linear-gradient(180deg, transparent, rgba(var(--acc), 0.15) 50%, transparent);
+    height: 300px;
+    animation: scan 4s linear infinite; 
+  }
+
+  
   :root[data-theme="amber"]{--acc:255,178,61}
   :root[data-theme="green"]{--acc:92,255,143}
   *{box-sizing:border-box}
