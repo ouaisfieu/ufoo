@@ -459,7 +459,7 @@ function log(msg,cls='info'){const d=new Date();const ts=`${pad(d.getUTCHours())
   logEl.appendChild(e);while(logEl.children.length>140)logEl.removeChild(logEl.firstChild);logEl.scrollTop=logEl.scrollHeight;}
 
 /* ===================== audio ===================== */
-let AC=null,master=null,soundOn=true,klaxon=null;
+let AC=null,master=null,soundOn=false,klaxon=null;
 function initAudio(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}
   master=AC.createGain();master.gain.value=0;master.connect(AC.destination);master.gain.linearRampToValueAtTime(0.9,AC.currentTime+0.6);
   const amb=AC.createGain();amb.gain.value=0.05;const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=340;amb.connect(lp).connect(master);
