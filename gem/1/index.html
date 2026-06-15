@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAP COMMAND CENTER - WAR ROOM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --bg-color: #050a15;
+            --main-cyan: #00ffff;
+            --main-red: #ff003c;
+            --main-green: #00ff66;
+            --panel-bg: rgba(0, 20, 40, 0.6);
+            --border-style: 1px solid var(--main-cyan);
+            --glow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        body {
+            margin: 0;
+            padding: 10px;
+            background-color: var(--bg-color);
+            color: var(--main-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, var(--bg-color) 100%),
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+        }
+
+        /* Effet d'écran CRT (Scanlines) */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: 60px 1fr 150px;
+            gap: 15px;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: var(--border-style);
+            box-shadow: var(--glow);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+
+        /* En-tête */
+        .header {
+            grid-column: 1 / 4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--main-red);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--main-red);
+            text-shadow: 0 0 10px var(--main-red);
+            letter-spacing: 2px;
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Colonne de gauche : Radar et Télémétrie */
+        .left-col {
+            grid-row: 2 / 3;
+            grid-column: 1 / 2;
+        }
+
+        .radar-container {
+            width: 100%;
+            aspect-ratio: 1;
+            border: var(--border-style);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(0,0,0,1) 100%);
+        }
+
+        .radar-grid {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: 
+                linear-gradient(90deg, transparent 49.5%, rgba(0, 255, 255, 0.5) 50%, transparent 50.5%),
+                linear-gradient(0deg, transparent 49.5%, rgba(0, 255, 255, 0.5) 50%, transparent 50.5%);
+        }
+
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 50%;
+            background: conic-gradient(from 0deg, transparent 70%, var(--main-cyan) 100%);
+            transform-origin: 0% 0%;
+            animation: sweep 4s infinite linear;
+        }
+
+        .target {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--main-red);
+            border-radius: 50%;
+            top: 30%;
+            left: 60%;
+            box-shadow: 0 0 8px var(--main-red);
+            animation: blinker 2s infinite;
+        }
+
+        @keyframes sweep {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Centre : Flux Vidéo */
+        .center-col {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            width: 100%;
+            border: 2px solid var(--main-cyan);
+            box-shadow: 0 0 15px var(--main-cyan);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .target-lock {
+            position: absolute;
+            top: 10px; right: 10px;
+            color: var(--main-red);
+            font-weight: bold;
+            border: 1px solid var(--main-red);
+            padding: 5px;
+        }
+
+        /* Colonne de droite : Archives Catégorie D */
+        .right-col {
+            grid-row: 2 / 3;
+            grid-column: 3 / 4;
+            overflow-y: auto;
+        }
+
+        .case-file {
+            border-left: 3px solid var(--main-cyan);
+            padding-left: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .case-file h3 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: var(--main-green);
+        }
+
+        .case-file p {
+            margin: 0;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* Terminal en bas */
+        .bottom-row {
+            grid-row: 3 / 4;
+            grid-column: 1 / 4;
+            border-top: 2px solid var(--main-cyan);
+            overflow: hidden;
+        }
+
+        #terminal-output {
+            font-size: 14px;
+            color: var(--main-green);
+            line-height: 1.4;
+        }
+
+        .section-title {
+            background: var(--main-cyan);
+            color: #000;
+            display: inline-block;
+            padding: 2px 10px;
+            margin-top: -15px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <div class="panel header">
+            <h1>UNITED NATIONS UAP TASK FORCE // <span class="blink" style="color: var(--main-cyan);">LIVE FEED</span></h1>
+            <div>
+                STATUS: <span style="color: var(--main-red);">NIVEAU ROUGE</span> | 
+                CRYPTAGE: <span style="color: var(--main-green);">ACTIF (RSA-4096)</span> |
+                <span id="clock"></span>
+            </div>
+        </div>
+
+        <div class="panel left-col">
+            <div class="section-title">CAPTEURS LOCAUX</div>
+            <br>
+            <div class="radar-container">
+                <div class="radar-grid"></div>
+                <div class="radar-sweep"></div>
+                <div class="target"></div>
+                <div class="target" style="top: 70%; left: 20%; animation-delay: 1s;"></div>
+            </div>
+            <div style="font-size: 12px; line-height: 1.8;">
+                > BALAYAGE RADAR : <span style="color:var(--main-green)">NOMINAL</span><br>
+                > SPECTROMÉTRIE : <span style="color:var(--main-red)">ANOMALIE (MICRO-ONDES)</span><br>
+                > SIGNATURE THERMIQUE : <span style="color:var(--main-cyan)">NÉGATIVE</span><br>
+                > CINÉMATIQUE : MACH 15 ESTIMÉ<br>
+                > BANG SONIQUE : NON DÉTECTÉ
+            </div>
+        </div>
+
+        <div class="panel center-col" style="justify-content: center; align-items: center;">
+            <div class="section-title" style="position: absolute; top: 0; left: 15px;">FLUX AUDIO/VIDÉO PRINCIPAL</div>
+            <div class="video-wrapper" style="width: 100%;">
+                <div class="target-lock blink">TRACKING ENGAGED</div>
+                <iframe src="https://www.youtube.com/embed/U3ywiWYSbXQ?autoplay=1&mute=1" 
+                        title="UAP Analysis Feed" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <p style="text-align: center; font-size: 12px; margin-top: 15px;">SOURCE: Analyse multicapteurs croisée. Rapport du GEIPAN et Bureau AARO (Pentagone).</p>
+        </div>
+
+        <div class="panel right-col">
+            <div class="section-title">ARCHIVES CATÉGORIE D</div>
+            <br>
+            <div class="case-file">
+                <h3>[1976] INCIDENT DE TÉHÉRAN</h3>
+                <p><strong>CIBLE:</strong> F-4 Phantom II<br>
+                <strong>ÉVÉNEMENT:</strong> Perte totale télémétrie et systèmes d'armement à 25 milles nautiques de la cible. Brouillage électromagnétique hautement chirurgical. Défaillance mécanique du siège éjectable.</p>
+            </div>
+            <div class="case-file">
+                <h3>[1981] TRANS-EN-PROVENCE</h3>
+                <p><strong>CIBLE:</strong> Empreinte au sol (GEIPAN/INRA)<br>
+                <strong>ÉVÉNEMENT:</strong> Pression au sol : 4-5 tonnes. Chaleur : 300-600°C. Traumatisme cellulaire végétal (Luzerne) avec destruction de 50% de la chlorophylle compatible avec un rayonnement micro-ondes pulsé.</p>
+            </div>
+            <div class="case-file">
+                <h3>[2004] USS NIMITZ (TIC-TAC)</h3>
+                <p><strong>CIBLE:</strong> F/A-18 Super Hornet<br>
+                <strong>ÉVÉNEMENT:</strong> Chute d'altitude de 80,000 ft au niveau de la mer en moins d'une seconde. Aucune surface de vol, aucune traînée de chaleur détectée (caméras FLIR). Déplacement transmédium confirmé.</p>
+            </div>
+        </div>
+
+        <div class="panel bottom-row">
+            <div class="section-title">INVITE DE COMMANDES SYSTÈME</div>
+            <div id="terminal-output" style="margin-top: 10px;"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Horloge temps réel
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' ZULU';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Animation d'écriture machine pour le terminal
+        const lines = [
+            "INITIALISATION DU SYSTÈME D'ANALYSE AÉROSPATIALE...",
+            "CONNEXION AUX SERVEURS SÉCURISÉS DU GEIPAN [OK]",
+            "TÉLÉCHARGEMENT DES RAPPORTS 'CATÉGORIE D' (CAS INEXPLIQUÉS) [OK]",
+            "ANALYSE DE LA MATRICE DE DONNÉES EN COURS...",
+            "> ALERTE : Le modèle socio-psychologique ne parvient pas à expliquer les traces physiques de Trans-en-Provence.",
+            "> ALERTE : Cinématique du cas Nimitz (2004) dépasse les limites structurelles du Titane.",
+            "RÉSOLUTION DES ANOMALIES ÉCHOUÉE. LA MATÉRIALITÉ DE L'OBJET EST CONFIRMÉE PAR LES RADARS AEGIS.",
+            "EN ATTENTE DE NOUVELLES DIRECTIVES OPÉRATIONNELLES..."
+        ];
+        
+        let lineIndex = 0;
+        let charIndex = 0;
+        const terminal = document.getElementById('terminal-output');
+
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                if (charIndex < lines[lineIndex].length) {
+                    terminal.innerHTML += lines[lineIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeLine, 20); // Vitesse de frappe
+                } else {
+                    terminal.innerHTML += "<br>";
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeLine, 500); // Pause entre les lignes
+                }
+            } else {
+                terminal.innerHTML += "<span class='blink'>_</span>";
+            }
+        }
+
+        setTimeout(typeLine, 1000);
+    </script>
+</body>
+</html>
